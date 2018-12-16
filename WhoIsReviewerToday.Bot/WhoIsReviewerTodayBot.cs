@@ -9,5 +9,11 @@ namespace WhoIsReviewerToday.Bot
         public WhoIsReviewerTodayBot() : base(AuthToken)
         {
         }
+
+        public string GetGreetings()
+        {
+            var result = GetMeAsync().Result;
+            return $"Hello, World! I am user {result.Id} and my name is {result.FirstName}.";
+        }
     }
 }
