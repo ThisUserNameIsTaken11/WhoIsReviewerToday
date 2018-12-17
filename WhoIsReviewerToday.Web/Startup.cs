@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WhoIsReviewerToday.Web
@@ -9,18 +8,25 @@ namespace WhoIsReviewerToday.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages()
+                    .UseDeveloperExceptionPage();
+            else
+                app.UseExceptionHandler("/Error");
 
-            app.Run(
-                async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+            app.UseStaticFiles()
+                .UseMvc(
+                    routes =>
+                    {
+                        routes.MapRoute(
+                            "default",
+                            "{controller=Home}/{action=Index}");
+                    });
         }
     }
 }
