@@ -15,7 +15,7 @@ namespace WhoIsReviewerToday.Bot.Tests
 
         private WhoIsReviewerTodayService CreateService() =>
             new WhoIsReviewerTodayService(_whoIsReviewerTodayBotMock.Object);
-        
+
         [Fact]
         public void StartsReceivingOnStart()
         {
@@ -23,7 +23,8 @@ namespace WhoIsReviewerToday.Bot.Tests
 
             service.Start();
 
-            _whoIsReviewerTodayBotMock.Verify(bot => bot.StartReceiving(null, default(CancellationToken)),
+            _whoIsReviewerTodayBotMock.Verify(
+                bot => bot.StartReceiving(null, default(CancellationToken)),
                 Times.Once);
         }
 
@@ -35,7 +36,8 @@ namespace WhoIsReviewerToday.Bot.Tests
             service.Start();
             service.Stop();
 
-            _whoIsReviewerTodayBotMock.Verify(bot => bot.StopReceiving(),
+            _whoIsReviewerTodayBotMock.Verify(
+                bot => bot.StopReceiving(),
                 Times.Once);
         }
     }
