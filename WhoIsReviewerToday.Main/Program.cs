@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Ninject;
 using Ninject.Modules;
 using WhoIsReviewerToday.Bot;
 
-namespace WhoIsReviewerToday.Main
+namespace WhoIsReviewerToday.Console
 {
     internal class Program
     {
@@ -28,7 +27,7 @@ namespace WhoIsReviewerToday.Main
             {
                 var whoIsReviewerTodayService = kernel.Get<IWhoIsReviewerTodayService>();
                 whoIsReviewerTodayService.Start();
-                Console.ReadKey();
+                System.Console.ReadKey();
                 whoIsReviewerTodayService.Stop();
             }
         }

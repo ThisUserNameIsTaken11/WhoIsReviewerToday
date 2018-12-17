@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>WhoIsReviewerToday.Main</RootNamespace>
-    <AssemblyName>WhoIsReviewerToday.Main</AssemblyName>
+    <RootNamespace>WhoIsReviewerToday.Console</RootNamespace>
+    <AssemblyName>WhoIsReviewerToday.Console</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

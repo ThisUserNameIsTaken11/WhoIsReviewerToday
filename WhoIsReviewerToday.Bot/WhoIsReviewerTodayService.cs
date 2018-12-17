@@ -1,7 +1,4 @@
 ﻿using System;
-using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace WhoIsReviewerToday.Bot
 {
@@ -14,18 +11,19 @@ namespace WhoIsReviewerToday.Bot
             _whoIsReviewerTodayBot = whoIsReviewerTodayBot;
         }
 
-        public void Dispose()
-        {
-        }
-
         public void Start()
         {
+            //_whoIsReviewerTodayBot.SetWebhookAsync("");
             _whoIsReviewerTodayBot.StartReceiving();
         }
 
         public void Stop()
         {
             _whoIsReviewerTodayBot.StopReceiving();
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
