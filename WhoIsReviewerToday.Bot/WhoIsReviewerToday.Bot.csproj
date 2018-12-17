@@ -51,9 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IWhoIsReviewerTodayBot.cs" />
+    <Compile Include="IWhoIsReviewerTodayService.cs" />
     <Compile Include="NinjectBindings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WhoIsReviewerTodayBot.cs" />
+    <Compile Include="WhoIsReviewerTodayService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

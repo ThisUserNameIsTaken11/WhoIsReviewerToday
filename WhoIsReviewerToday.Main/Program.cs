@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ninject;
+using Ninject.Modules;
 using WhoIsReviewerToday.Bot;
 
 namespace WhoIsReviewerToday.Main
 {
     internal class Program
     {
+        private static IEnumerable<INinjectModule> GetNinjectModules()
+        {
+            yield return new NinjectBindings();
+        }
+
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new NinjectBindings());
+            var ninjectModules = GetNinjectModules().ToArray();
+            var kernel = new StandardKernel(ninjectModules);
 
             return kernel;
         }
@@ -17,9 +26,10 @@ namespace WhoIsReviewerToday.Main
         {
             using (var kernel = CreateKernel())
             {
-                var whoIsReviewerTodayBot = kernel.Get<IWhoIsReviewerTodayBot>();
-                Console.WriteLine(whoIsReviewerTodayBot.GetGreetings());
+                var whoIsReviewerTodayService = kernel.Get<IWhoIsReviewerTodayService>();
+                whoIsReviewerTodayService.Start();
                 Console.ReadKey();
+                whoIsReviewerTodayService.Stop();
             }
         }
     }

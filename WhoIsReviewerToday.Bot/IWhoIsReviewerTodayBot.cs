@@ -1,6 +1,8 @@
-﻿namespace WhoIsReviewerToday.Bot
+﻿using Telegram.Bot;
+
+namespace WhoIsReviewerToday.Bot
 {
-    public interface IWhoIsReviewerTodayBot
+    public interface IWhoIsReviewerTodayBot : ITelegramBotClient
     {
         string GetGreetings();
     }

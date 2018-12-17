@@ -7,6 +7,7 @@ namespace WhoIsReviewerToday.Bot
         public override void Load()
         {
             Bind<IWhoIsReviewerTodayBot>().To<WhoIsReviewerTodayBot>().InSingletonScope();
+            Bind<IWhoIsReviewerTodayService>().To<WhoIsReviewerTodayService>().InSingletonScope();
         }
     }
 }
