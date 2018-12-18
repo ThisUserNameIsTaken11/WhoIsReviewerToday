@@ -5,17 +5,17 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Bot", "WhoIsReviewerToday.Bot\WhoIsReviewerToday.Bot.csproj", "{45BC5982-25A0-427C-9365-37F7D94366E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Console", "WhoIsReviewerToday.Main\WhoIsReviewerToday.Console.csproj", "{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Bot.Tests", "WhoIsReviewerToday.Bot.Tests\WhoIsReviewerToday.Bot.Tests.csproj", "{BFAAD21A-C9FC-45BC-8E3F-0DC961BDD9C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC4CA611-46C1-495B-B6DB-8F37ACEFF891}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{8996153F-7001-45A6-940C-8E8575ACAE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Web", "WhoIsReviewerToday.Web\WhoIsReviewerToday.Web.csproj", "{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Web", "WhoIsReviewerToday.Web\WhoIsReviewerToday.Web.csproj", "{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Run", "Run", "{A55EA613-8564-4DEC-8580-E8E8F17AC53B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.EntityFramework", "WhoIsReviewerToday.EntityFramework\WhoIsReviewerToday.EntityFramework.csproj", "{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{45BC5982-25A0-427C-9365-37F7D94366E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BC5982-25A0-427C-9365-37F7D94366E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BC5982-25A0-427C-9365-37F7D94366E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFAAD21A-C9FC-45BC-8E3F-0DC961BDD9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFAAD21A-C9FC-45BC-8E3F-0DC961BDD9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFAAD21A-C9FC-45BC-8E3F-0DC961BDD9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,15 +35,19 @@ Global
 		{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{45BC5982-25A0-427C-9365-37F7D94366E3} = {8996153F-7001-45A6-940C-8E8575ACAE12}
-		{E6ABDD41-7CF1-467B-A0FE-C41159B71AD6} = {A55EA613-8564-4DEC-8580-E8E8F17AC53B}
 		{BFAAD21A-C9FC-45BC-8E3F-0DC961BDD9C9} = {BC4CA611-46C1-495B-B6DB-8F37ACEFF891}
 		{6B0BFA8F-26DF-4B77-AEFD-4920D8E63F21} = {A55EA613-8564-4DEC-8580-E8E8F17AC53B}
+		{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC} = {8996153F-7001-45A6-940C-8E8575ACAE12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CE86644-C331-43DD-B157-2D2B337CE5ED}

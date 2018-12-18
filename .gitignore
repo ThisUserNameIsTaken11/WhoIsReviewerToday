@@ -33,3 +33,4 @@ packages/
 node_modules/
 **/wwwroot/lib/
 project.lock.json
+appsettings.json

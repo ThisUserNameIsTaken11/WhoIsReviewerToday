@@ -13,7 +13,6 @@ namespace WhoIsReviewerToday.Bot
 
         public void Start()
         {
-            //_whoIsReviewerTodayBot.SetWebhookAsync("");
             _whoIsReviewerTodayBot.StartReceiving();
         }
 
