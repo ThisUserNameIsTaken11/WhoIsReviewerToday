@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Web", "W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Run", "Run", "{A55EA613-8564-4DEC-8580-E8E8F17AC53B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastructure.EntityFramework", "WhoIsReviewerToday.EntityFramework\WhoIsReviewerToday.Infrastructure.EntityFramework.csproj", "{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastructure.EntityFramework", "WhoIsReviewerToday.Infrastructure.EntityFramework\WhoIsReviewerToday.Infrastructure.EntityFramework.csproj", "{882B9F70-2D82-4A12-88A9-8F4D0A2E5EEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Domain", "WhoIsReviewerToday.Domain\WhoIsReviewerToday.Domain.csproj", "{96DA919E-9DD5-4604-A24D-4AA6E645013C}"
 EndProject
