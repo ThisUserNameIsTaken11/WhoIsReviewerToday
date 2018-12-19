@@ -24,7 +24,8 @@ namespace WhoIsReviewerToday.Web
             var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
 
             services.SetupWhoIsReviewerTodayService(token)
-                .SetupDbContext(connectionString);
+                .SetupDbContext(connectionString)
+                .SetupDbInitializer();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
