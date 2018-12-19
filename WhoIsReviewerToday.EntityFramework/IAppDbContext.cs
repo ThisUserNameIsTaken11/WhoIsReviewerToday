@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WhoIsReviewerToday.EntityFramework.Models;
+using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 {
     public interface IAppDbContext
     {
-        DbSet<Chat> Chats { get; set; }
+        DbSet<Chat> Chats { get; }
+        DbSet<Developer> Developers { get; }
     }
 }

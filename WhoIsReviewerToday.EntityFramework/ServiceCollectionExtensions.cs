@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WhoIsReviewerToday.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 {
     public static class ServiceCollectionExtensions
     {

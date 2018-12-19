@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhoIsReviewerToday.Bot;
-using WhoIsReviewerToday.EntityFramework;
+using WhoIsReviewerToday.Infrastructure.EntityFramework;
 
 namespace WhoIsReviewerToday.Web
 {

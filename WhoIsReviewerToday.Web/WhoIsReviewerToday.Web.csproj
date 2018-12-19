@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhoIsReviewerToday.Bot\WhoIsReviewerToday.Bot.csproj" />
-    <ProjectReference Include="..\WhoIsReviewerToday.EntityFramework\WhoIsReviewerToday.EntityFramework.csproj" />
+    <ProjectReference Include="..\WhoIsReviewerToday.EntityFramework\WhoIsReviewerToday.Infrastructure.EntityFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

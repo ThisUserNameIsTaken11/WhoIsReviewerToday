@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WhoIsReviewerToday.EntityFramework.Models;
+using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
@@ -10,5 +10,6 @@ namespace WhoIsReviewerToday.EntityFramework
         }
 
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<Developer> Developers { get; set; }
     }
 }
