@@ -23,6 +23,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
         public static IServiceCollection SetupRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IDeveloperRepository, DeveloperRepository>();
+            serviceCollection.AddScoped<IReviewRepository, ReviewRepository>();
             return serviceCollection;
         }
     }

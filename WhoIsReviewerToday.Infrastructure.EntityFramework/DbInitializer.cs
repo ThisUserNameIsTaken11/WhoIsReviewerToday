@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
+﻿using System;
+using System.Linq;
 using WhoIsReviewerToday.Domain;
 using WhoIsReviewerToday.Domain.Models;
 
@@ -15,8 +16,17 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 
         public void SeedIfNeeded()
         {
+            var wereDevelopersAdded = TrySeedDevelopers();
+            var wereReviewsAdded = TrySeedReviews();
+
+            if (wereDevelopersAdded || wereReviewsAdded)
+                _appDbContext.SaveChanges();
+        }
+
+        private bool TrySeedDevelopers()
+        {
             if (_appDbContext.Developers.Any())
-                return;
+                return false;
 
             _appDbContext.AddRange(
                 new[]
@@ -107,7 +117,28 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
                     }
                 });
 
-            _appDbContext.SaveChanges();
+            return true;
+        }
+
+        private bool TrySeedReviews()
+        {
+            if (_appDbContext.Reviews.Any())
+                return false;
+
+            var startedDateTime = DateTime.Now;
+
+            foreach (var developer in _appDbContext.Developers)
+            {
+                var dateTime = startedDateTime.AddDays(1);
+                _appDbContext.Reviews.Add(
+                    new Review
+                    {
+                        DateTime = dateTime,
+                        Developer = developer
+                    });
+            }
+
+            return true;
         }
     }
 }

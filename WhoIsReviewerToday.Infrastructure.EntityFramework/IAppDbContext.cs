@@ -8,6 +8,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
     {
         DbSet<Chat> Chats { get; }
         DbSet<Developer> Developers { get; }
+        DbSet<Review> Reviews { get; set; }
 
         void AddRange(IEnumerable<object> entities);
 

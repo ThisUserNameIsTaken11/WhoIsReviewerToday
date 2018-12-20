@@ -8,13 +8,13 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
 {
     public class DeveloperRepository : IDeveloperRepository
     {
-        private readonly Lazy<IEnumerable<Developer>> _developersLazyField;
+        private readonly Lazy<IEnumerable<Developer>> _itemsLazyField;
 
         public DeveloperRepository(IAppDbContext appDbContext)
         {
-            _developersLazyField = new Lazy<IEnumerable<Developer>>(() => appDbContext.Developers.ToArray());
+            _itemsLazyField = new Lazy<IEnumerable<Developer>>(() => appDbContext.Developers.ToArray());
         }
 
-        public IEnumerable<Developer> Developers => _developersLazyField.Value;
+        public IEnumerable<Developer> Items => _itemsLazyField.Value;
     }
 }

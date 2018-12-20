@@ -16,10 +16,7 @@ namespace WhoIsReviewerToday.Domain.Models
 
         public Team Team { get; set; }
 
-        [ForeignKey(nameof(ChatId))]
         public Chat Chat { get; set; }
-
-        public long? ChatId { get; set; }
 
         public long? TelegramUserId { get; set; }
     }

@@ -3,8 +3,8 @@ using WhoIsReviewerToday.Domain.Models;
 
 namespace WhoIsReviewerToday.Domain.Repositories
 {
-    public interface IDeveloperRepository
+    public interface IReviewRepository
     {
-        IEnumerable<Developer> Items { get; }
+        IEnumerable<Review> Items { get; }
     }
 }

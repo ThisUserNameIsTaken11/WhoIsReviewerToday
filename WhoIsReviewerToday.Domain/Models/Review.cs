@@ -14,10 +14,6 @@ namespace WhoIsReviewerToday.Domain.Models
         public DateTime DateTime { get; set; }
 
         [Required]
-        [ForeignKey(nameof(DeveloperId))]
         public Developer Developer { get; set; }
-
-        [Required]
-        public long DeveloperId { get; set; }
     }
 }

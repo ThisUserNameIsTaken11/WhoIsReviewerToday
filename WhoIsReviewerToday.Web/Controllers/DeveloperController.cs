@@ -12,6 +12,6 @@ namespace WhoIsReviewerToday.Web.Controllers
             _developerRepository = developerRepository;
         }
 
-        public IActionResult Index() => View(_developerRepository.Developers);
+        public IActionResult Index() => View(_developerRepository.Items);
     }
 }
