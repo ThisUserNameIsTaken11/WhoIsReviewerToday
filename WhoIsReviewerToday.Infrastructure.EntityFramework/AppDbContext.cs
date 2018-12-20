@@ -11,5 +11,6 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Developer> Developers { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }
