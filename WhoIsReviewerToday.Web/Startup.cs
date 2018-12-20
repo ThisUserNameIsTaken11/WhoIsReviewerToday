@@ -25,7 +25,8 @@ namespace WhoIsReviewerToday.Web
 
             services.SetupWhoIsReviewerTodayService(token)
                 .SetupDbContext(connectionString)
-                .SetupDbInitializer();
+                .SetupDbInitializer()
+                .SetupRepositories();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

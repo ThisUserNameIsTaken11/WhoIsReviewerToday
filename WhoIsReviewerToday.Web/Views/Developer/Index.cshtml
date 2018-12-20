@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WhoIsReviewerToday.Domain.Models.Developer>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">FullName</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Team</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var developer in Model)
+    {
+        <tr>
+            <th scope="row">@developer.Id</th>
+            <td>@developer.FullName</td>
+            <td>@developer.UserName</td>
+            <td>@developer.Team</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WhoIsReviewerToday.Domain;
+using WhoIsReviewerToday.Domain.Repositories;
+using WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 {
@@ -15,6 +17,12 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
         public static IServiceCollection SetupDbInitializer(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IDbInitializer, DbInitializer>();
+            return serviceCollection;
+        }
+
+        public static IServiceCollection SetupRepositories(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IDeveloperRepository, DeveloperRepository>();
             return serviceCollection;
         }
     }
