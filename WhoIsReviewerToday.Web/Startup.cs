@@ -26,10 +26,14 @@ namespace WhoIsReviewerToday.Web
             services.SetupWhoIsReviewerTodayService(token)
                 .SetupDbContext(connectionString)
                 .SetupDbInitializer()
+                .SetupProviders()
+                .SetupCommands()
                 .SetupRepositories();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env)
         {
             if (env.IsDevelopment())
                 app.UseStatusCodePages()

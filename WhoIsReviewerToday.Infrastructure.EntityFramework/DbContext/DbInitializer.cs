@@ -3,7 +3,7 @@ using System.Linq;
 using WhoIsReviewerToday.Domain;
 using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.Infrastructure.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
 {
     internal class DbInitializer : IDbInitializer
     {

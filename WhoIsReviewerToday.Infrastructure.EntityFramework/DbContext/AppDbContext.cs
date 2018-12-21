@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.Infrastructure.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
 {
-    public class AppDbContext : DbContext, IAppDbContext
+    public class AppDbContext : Microsoft.EntityFrameworkCore.DbContext, IAppDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

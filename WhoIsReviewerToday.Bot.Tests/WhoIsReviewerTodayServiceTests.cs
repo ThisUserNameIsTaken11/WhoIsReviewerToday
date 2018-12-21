@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Moq;
+using WhoIsReviewerToday.Bot.Services;
 using Xunit;
 
 namespace WhoIsReviewerToday.Bot.Tests

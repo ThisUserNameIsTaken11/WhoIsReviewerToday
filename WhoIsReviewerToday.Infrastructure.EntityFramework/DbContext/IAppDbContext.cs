@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.Infrastructure.EntityFramework
+namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
 {
     public interface IAppDbContext
     {

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhoIsReviewerToday.Infrastructure.EntityFramework;
+using WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Migrations
 {
