@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using WhoIsReviewerToday.Bot.Services;
+using WhoIsReviewerToday.Infrastructure.Services;
 
 namespace WhoIsReviewerToday.Web.Controllers
 {
@@ -8,17 +8,17 @@ namespace WhoIsReviewerToday.Web.Controllers
     [ApiController]
     public class UpdateController : ControllerBase
     {
-        private readonly IWhoIsReviewerTodayService _whoIsReviewerTodayService;
+        private readonly IUpdateService _updateService;
 
-        public UpdateController(IWhoIsReviewerTodayService whoIsReviewerTodayService)
+        public UpdateController(IUpdateService updateService)
         {
-            _whoIsReviewerTodayService = whoIsReviewerTodayService;
+            _updateService = updateService;
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Update update)
         {
-            _whoIsReviewerTodayService.Update(update);
+            _updateService.Update(update);
 
             return Ok();
         }

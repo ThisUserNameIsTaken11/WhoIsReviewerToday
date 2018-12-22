@@ -7,7 +7,7 @@ using WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework
 {
-    public static class ServiceCollectionExtensions
+    public static class Registrations
     {
         public static IServiceCollection SetupDbContext(this IServiceCollection serviceCollection, string connectionString)
         {

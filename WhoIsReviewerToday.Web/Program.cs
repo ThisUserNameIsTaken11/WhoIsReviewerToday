@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
-using WhoIsReviewerToday.Bot.Services;
 using WhoIsReviewerToday.Domain;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
@@ -15,7 +14,6 @@ namespace WhoIsReviewerToday.Web
     {
         public static void Main(string[] args)
         {
-            
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
             try
@@ -27,9 +25,6 @@ namespace WhoIsReviewerToday.Web
                     var serviceProvider = scope.ServiceProvider;
                     var dbInitializer = serviceProvider.GetRequiredService<IDbInitializer>();
                     dbInitializer.SeedIfNeeded();
-
-                    var whoIsReviewerTodayService = serviceProvider.GetRequiredService<IWhoIsReviewerTodayService>();
-                    whoIsReviewerTodayService.Start();
                 }
 
                 webHost.Run();

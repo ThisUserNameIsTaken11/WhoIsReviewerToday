@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WhoIsReviewerToday.Bot;
+using WhoIsReviewerToday.Infrastructure;
 using WhoIsReviewerToday.Infrastructure.EntityFramework;
 
 namespace WhoIsReviewerToday.Web
@@ -16,10 +17,8 @@ namespace WhoIsReviewerToday.Web
             _configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        private void AddRegistrations(IServiceCollection services)
         {
-            services.AddMvc();
-
             var token = _configuration["BotSettings:Token"];
             var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
 
@@ -27,8 +26,16 @@ namespace WhoIsReviewerToday.Web
                 .SetupDbContext(connectionString)
                 .SetupDbInitializer()
                 .SetupProviders()
+                .SetupServices()
                 .SetupCommands()
+                .SetupFactories()
                 .SetupRepositories();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+            AddRegistrations(services);
         }
 
         public void Configure(
