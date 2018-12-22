@@ -4,7 +4,7 @@ using WhoIsReviewerToday.Infrastructure.Services;
 
 namespace WhoIsReviewerToday.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/update")]
     [ApiController]
     public class UpdateController : ControllerBase
     {

@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using FluentAssertions;
 using Moq;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using WhoIsReviewerToday.Domain.Factories;
 using Xunit;
 
@@ -19,17 +21,26 @@ namespace WhoIsReviewerToday.Bot.Tests
         private readonly Mock<IWhoIsReviewerTodayBot> _whoIsReviewerTodayBotMock;
         private readonly Mock<ICancellationTokenSourceFactory> _cancellationTokenSourceFactoryMock;
         private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly string _websiteUrl = "https://helloworld.com:8080/";
 
         private WhoIsReviewerTodayService CreateService() =>
             new WhoIsReviewerTodayService(_whoIsReviewerTodayBotMock.Object, _cancellationTokenSourceFactoryMock.Object);
 
         [Fact]
-        public void StartsReceivingInCtor()
+        public void SetsWebHookOnStart()
         {
-            CreateService();
+            var service = CreateService();
+
+            const string webHookUrl = "https://helloworld.com:443/api/update";
+            service.StartBot(_websiteUrl);
 
             _whoIsReviewerTodayBotMock.Verify(
-                bot => bot.StartReceiving(null, _cancellationTokenSource.Token),
+                bot => bot.SetWebhookAsync(
+                    webHookUrl,
+                    null,
+                    0,
+                    null,
+                    _cancellationTokenSource.Token),
                 Times.Once);
         }
 
@@ -53,6 +64,20 @@ namespace WhoIsReviewerToday.Bot.Tests
             service.Dispose();
 
             _cancellationTokenSource.IsCancellationRequested.Should().BeTrue();
+        }
+
+        [Fact]
+        public void SendsTextMessageAsyncOnSendMessage()
+        {
+            var service = CreateService();
+            var chatId = new ChatId(123);
+            const string text = "Text";
+
+            service.SendMessage(chatId, text);
+
+            _whoIsReviewerTodayBotMock.Verify(
+                bot => bot.SendTextMessageAsync(chatId, text, ParseMode.Default, false, false, 0, null, _cancellationTokenSource.Token),
+                Times.Once);
         }
     }
 }

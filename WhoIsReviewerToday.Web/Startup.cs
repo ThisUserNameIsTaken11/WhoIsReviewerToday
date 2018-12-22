@@ -17,7 +17,7 @@ namespace WhoIsReviewerToday.Web
             _configuration = configuration;
         }
 
-        private void AddRegistrations(IServiceCollection services)
+        private void AddApplicationClassesRegistrations(IServiceCollection services)
         {
             var token = _configuration["BotSettings:Token"];
             var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
@@ -35,7 +35,8 @@ namespace WhoIsReviewerToday.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            AddRegistrations(services);
+
+            AddApplicationClassesRegistrations(services);
         }
 
         public void Configure(
