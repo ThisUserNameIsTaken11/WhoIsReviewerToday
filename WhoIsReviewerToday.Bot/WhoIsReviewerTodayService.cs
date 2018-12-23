@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using WhoIsReviewerToday.Domain.Factories;
 
@@ -24,16 +25,18 @@ namespace WhoIsReviewerToday.Bot
             await _whoIsReviewerTodayBot.SetWebhookAsync(webHookUrl, cancellationToken: _cancellationTokenSource.Token);
         }
 
+        public async void SendSimpleMessage(ChatId chartId, string text)
+        {
+            await _whoIsReviewerTodayBot.SendTextMessageAsync(chartId, text, cancellationToken: _cancellationTokenSource.Token);
+        }
+
+        public string GetGreetings() => _whoIsReviewerTodayBot.GetGreetings();
+
         private static string GetWebHookUrl(string websiteUrl)
         {
             var uri = new Uri(websiteUrl);
             var uriBuilder = new UriBuilder(uri) { Port = 443, Path = "api/update" };
             return uriBuilder.ToString();
-        }
-
-        public async void SendMessage(ChatId chartId, string text)
-        {
-            await _whoIsReviewerTodayBot.SendTextMessageAsync(chartId, text, cancellationToken: _cancellationTokenSource.Token);
         }
 
         private void StopBot()

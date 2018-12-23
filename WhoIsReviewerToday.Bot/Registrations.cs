@@ -4,9 +4,9 @@ namespace WhoIsReviewerToday.Bot
 {
     public static class Registrations
     {
-        public static IServiceCollection SetupWhoIsReviewerTodayService(this IServiceCollection serviceCollection, string token)
+        public static IServiceCollection SetupWhoIsReviewerTodayService(this IServiceCollection serviceCollection, string botToken)
         {
-            serviceCollection.AddSingleton<IWhoIsReviewerTodayBot, WhoIsReviewerTodayBot>(provider => new WhoIsReviewerTodayBot(token));
+            serviceCollection.AddSingleton<IWhoIsReviewerTodayBot, WhoIsReviewerTodayBot>(provider => new WhoIsReviewerTodayBot(botToken));
             serviceCollection.AddSingleton<IWhoIsReviewerTodayService, WhoIsReviewerTodayService>();
 
             return serviceCollection;

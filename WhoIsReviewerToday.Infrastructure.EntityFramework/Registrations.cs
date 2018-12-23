@@ -25,6 +25,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework
         {
             serviceCollection.AddScoped<IDeveloperRepository, DeveloperRepository>();
             serviceCollection.AddScoped<IReviewRepository, ReviewRepository>();
+            serviceCollection.AddScoped<IChatRepository, ChatRepository>();
             return serviceCollection;
         }
     }

@@ -15,8 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.csproj" />
-    <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure\WhoIsReviewerToday.Infrastructure.csproj" />
+    <ProjectReference Include="..\WhoIsReviewerToday.Bot\WhoIsReviewerToday.Bot.csproj" />
+    <ProjectReference Include="..\WhoIsReviewerToday.Domain\WhoIsReviewerToday.Domain.csproj" />
+    <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure.EntityFramework\WhoIsReviewerToday.Infrastructure.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

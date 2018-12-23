@@ -19,10 +19,10 @@ namespace WhoIsReviewerToday.Web
 
         private void AddApplicationClassesRegistrations(IServiceCollection services)
         {
-            var token = _configuration["BotSettings:Token"];
-            var connectionString = _configuration["ConnectionStrings:DefaultConnection"];
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            var botToken = _configuration["APPSETTING_BotToken"];
 
-            services.SetupWhoIsReviewerTodayService(token)
+            services.SetupWhoIsReviewerTodayService(botToken)
                 .SetupDbContext(connectionString)
                 .SetupDbInitializer()
                 .SetupProviders()

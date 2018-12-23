@@ -6,6 +6,8 @@ namespace WhoIsReviewerToday.Bot
     {
         void StartBot(string websiteUrl);
 
-        void SendMessage(ChatId chartId, string text);
+        void SendSimpleMessage(ChatId chartId, string text);
+
+        string GetGreetings();
     }
 }

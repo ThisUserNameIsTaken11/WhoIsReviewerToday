@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -24,16 +23,15 @@ namespace WhoIsReviewerToday.Web
                 logger.Debug("init main");
                 var webHost = CreateWebHostBuilder(args).Build();
 
-                var serverAddressesFeature = webHost.ServerFeatures.Get<IServerAddressesFeature>();
-                var websiteUrl = serverAddressesFeature.Addresses.FirstOrDefault();
-
                 using (var scope = webHost.Services.CreateScope())
                 {
                     var serviceProvider = scope.ServiceProvider;
-                  
+
                     var dbInitializer = serviceProvider.GetRequiredService<IDbInitializer>();
                     dbInitializer.SeedIfNeeded();
 
+                    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                    var websiteUrl = configuration["Website:Url"];
                     serviceProvider.GetRequiredService<IWhoIsReviewerTodayService>()
                         .StartBot(websiteUrl);
                 }

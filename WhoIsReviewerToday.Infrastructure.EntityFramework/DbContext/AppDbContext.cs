@@ -3,7 +3,7 @@ using WhoIsReviewerToday.Domain.Models;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
 {
-    public class AppDbContext : Microsoft.EntityFrameworkCore.DbContext, IAppDbContext
+    public sealed class AppDbContext : Microsoft.EntityFrameworkCore.DbContext, IAppDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

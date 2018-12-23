@@ -7,7 +7,7 @@ using WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
 {
-    public class ReviewRepository : IReviewRepository
+    internal class ReviewRepository : IReviewRepository
     {
         private readonly Lazy<IEnumerable<Review>> _itemsLazyField;
 

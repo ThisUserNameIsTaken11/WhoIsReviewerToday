@@ -73,11 +73,24 @@ namespace WhoIsReviewerToday.Bot.Tests
             var chatId = new ChatId(123);
             const string text = "Text";
 
-            service.SendMessage(chatId, text);
+            service.SendSimpleMessage(chatId, text);
 
             _whoIsReviewerTodayBotMock.Verify(
                 bot => bot.SendTextMessageAsync(chatId, text, ParseMode.Default, false, false, 0, null, _cancellationTokenSource.Token),
                 Times.Once);
+        }
+
+        [Fact]
+        public void GetsGreetings()
+        {
+            const string helloWorld = "Hello, World!";
+            _whoIsReviewerTodayBotMock.Setup(bot => bot.GetGreetings())
+                .Returns(helloWorld);
+            var service = CreateService();
+
+            var greetings = service.GetGreetings();
+
+            greetings.Should().Be(helloWorld);
         }
     }
 }
