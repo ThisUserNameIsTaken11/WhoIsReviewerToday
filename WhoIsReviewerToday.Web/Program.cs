@@ -30,10 +30,18 @@ namespace WhoIsReviewerToday.Web
                     var dbInitializer = serviceProvider.GetRequiredService<IDbInitializer>();
                     dbInitializer.SeedIfNeeded();
 
-                    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-                    var websiteUrl = configuration["Website:Url"];
-                    serviceProvider.GetRequiredService<IWhoIsReviewerTodayService>()
-                        .StartBot(websiteUrl);
+                    var hostingEnvironment = serviceProvider.GetRequiredService<IHostingEnvironment>();
+                    if (hostingEnvironment.IsDevelopment())
+                    {
+                        serviceProvider.GetRequiredService<ILocalhostBotService>().Start();
+                    }
+                    else
+                    {
+                        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                        var websiteUrl = configuration["Website:Url"];
+                        serviceProvider.GetRequiredService<IWhoIsReviewerTodayService>()
+                            .Start(websiteUrl);
+                    }
                 }
 
                 webHost.Run();

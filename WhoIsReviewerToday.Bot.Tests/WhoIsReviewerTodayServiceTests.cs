@@ -32,7 +32,7 @@ namespace WhoIsReviewerToday.Bot.Tests
             var service = CreateService();
 
             const string webHookUrl = "https://helloworld.com:443/api/update";
-            service.StartBot(_websiteUrl);
+            service.Start(_websiteUrl);
 
             _whoIsReviewerTodayBotMock.Verify(
                 bot => bot.SetWebhookAsync(

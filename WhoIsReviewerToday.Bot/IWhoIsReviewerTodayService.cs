@@ -4,7 +4,7 @@ namespace WhoIsReviewerToday.Bot
 {
     public interface IWhoIsReviewerTodayService
     {
-        void StartBot(string websiteUrl);
+        void Start(string websiteUrl);
 
         void SendSimpleMessage(ChatId chartId, string text);
 

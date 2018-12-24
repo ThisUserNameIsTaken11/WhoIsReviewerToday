@@ -12,15 +12,15 @@ namespace WhoIsReviewerToday.Infrastructure
     {
         public static IServiceCollection SetupProviders(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IBotCommandProvider, BotCommandProvider>();
+            serviceCollection.AddScoped<IBotCommandProvider, BotCommandProvider>();
 
             return serviceCollection;
         }
 
         public static IServiceCollection SetupServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IUpdateService, UpdateService>();
-            serviceCollection.AddSingleton<ILocalHosBotService, LocalHosBotService>();
+            serviceCollection.AddScoped<IUpdateService, UpdateService>();
+            serviceCollection.AddScoped<ILocalhostBotService, LocalhostBotService>();
 
             return serviceCollection;
         }
@@ -34,8 +34,8 @@ namespace WhoIsReviewerToday.Infrastructure
 
         public static IServiceCollection SetupCommands(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<ICommand, StartCommand>();
-            serviceCollection.AddSingleton<ICommand, HelpCommand>();
+            serviceCollection.AddScoped<ICommand, StartCommand>();
+            serviceCollection.AddScoped<ICommand, HelpCommand>();
 
             return serviceCollection;
         }
