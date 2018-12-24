@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using WhoIsReviewerToday.Infrastructure.Factories;
@@ -19,6 +20,7 @@ namespace WhoIsReviewerToday.Infrastructure
         public static IServiceCollection SetupServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IUpdateService, UpdateService>();
+            serviceCollection.AddSingleton<ILocalHosBotService, LocalHosBotService>();
 
             return serviceCollection;
         }
