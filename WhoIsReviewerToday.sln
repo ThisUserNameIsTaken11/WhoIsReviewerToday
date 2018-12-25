@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests", "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.csproj", "{209B7647-E147-4BBD-834E-8EF087E79057}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Infrastructure.Scheduling", "WhoIsReviewerToday.Infrastructure.Scheduling\WhoIsReviewerToday.Infrastructure.Scheduling.csproj", "{66E652C3-E2FD-4BF1-9C19-7029431D924D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{209B7647-E147-4BBD-834E-8EF087E79057}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{209B7647-E147-4BBD-834E-8EF087E79057}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{209B7647-E147-4BBD-834E-8EF087E79057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E652C3-E2FD-4BF1-9C19-7029431D924D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E652C3-E2FD-4BF1-9C19-7029431D924D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E652C3-E2FD-4BF1-9C19-7029431D924D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E652C3-E2FD-4BF1-9C19-7029431D924D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{9B06071A-5371-482D-B746-A6649454A1DF} = {8996153F-7001-45A6-940C-8E8575ACAE12}
 		{843CC1F4-5DD8-4181-A27B-30ACD6E4AFDD} = {BC4CA611-46C1-495B-B6DB-8F37ACEFF891}
 		{209B7647-E147-4BBD-834E-8EF087E79057} = {BC4CA611-46C1-495B-B6DB-8F37ACEFF891}
+		{66E652C3-E2FD-4BF1-9C19-7029431D924D} = {8996153F-7001-45A6-940C-8E8575ACAE12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CE86644-C331-43DD-B157-2D2B337CE5ED}
