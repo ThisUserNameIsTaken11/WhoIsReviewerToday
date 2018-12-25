@@ -45,14 +45,14 @@ namespace WhoIsReviewerToday.Bot.Tests
         }
 
         [Fact]
-        public void StopsReceivingOnDispose()
+        public void DeletesWebHookOnDispose()
         {
             var service = CreateService();
 
             service.Dispose();
 
             _whoIsReviewerTodayBotMock.Verify(
-                bot => bot.StopReceiving(),
+                bot => bot.DeleteWebhookAsync(CancellationToken.None),
                 Times.Once);
         }
 

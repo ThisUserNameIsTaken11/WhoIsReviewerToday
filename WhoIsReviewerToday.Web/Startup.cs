@@ -22,7 +22,7 @@ namespace WhoIsReviewerToday.Web
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var botToken = _configuration["APPSETTING_BotToken"];
 
-            services.SetupWhoIsReviewerTodayService(botToken)
+            services.SetupWhoIsReviewerTodayBotAndService(botToken)
                 .SetupDbContext(connectionString)
                 .SetupDbInitializer()
                 .SetupProviders()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using WhoIsReviewerToday.Infrastructure.Factories;
@@ -20,7 +19,6 @@ namespace WhoIsReviewerToday.Infrastructure
         public static IServiceCollection SetupServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IUpdateService, UpdateService>();
-            serviceCollection.AddScoped<ILocalhostBotService, LocalhostBotService>();
 
             return serviceCollection;
         }

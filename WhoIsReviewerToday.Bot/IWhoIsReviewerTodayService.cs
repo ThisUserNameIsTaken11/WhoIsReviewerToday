@@ -9,5 +9,7 @@ namespace WhoIsReviewerToday.Bot
         void SendSimpleMessage(ChatId chartId, string text);
 
         string GetGreetings();
+
+        void Stop();
     }
 }

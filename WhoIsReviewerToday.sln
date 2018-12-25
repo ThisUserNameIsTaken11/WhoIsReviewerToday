@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Bot", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastructure.Tests", "WhoIsReviewerToday.Infrastructure.Tests\WhoIsReviewerToday.Infrastructure.Tests.csproj", "{843CC1F4-5DD8-4181-A27B-30ACD6E4AFDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests", "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.csproj", "{209B7647-E147-4BBD-834E-8EF087E79057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests", "WhoIsReviewerToday.Infrastructure.EntityFramework.Tests\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.csproj", "{209B7647-E147-4BBD-834E-8EF087E79057}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

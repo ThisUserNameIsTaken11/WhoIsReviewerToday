@@ -22,27 +22,21 @@ namespace WhoIsReviewerToday.Web
             {
                 logger.Debug("init main");
                 var webHost = CreateWebHostBuilder(args).Build();
+                var webHostServices = webHost.Services;
 
-                using (var scope = webHost.Services.CreateScope())
+                using (var scope = webHostServices.CreateScope())
                 {
                     var serviceProvider = scope.ServiceProvider;
 
                     var dbInitializer = serviceProvider.GetRequiredService<IDbInitializer>();
                     dbInitializer.SeedIfNeeded();
-
-                    var hostingEnvironment = serviceProvider.GetRequiredService<IHostingEnvironment>();
-                    if (hostingEnvironment.IsDevelopment())
-                    {
-                        serviceProvider.GetRequiredService<ILocalhostBotService>().Start();
-                    }
-                    else
-                    {
-                        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                        var websiteUrl = configuration["Website:Url"];
-                        serviceProvider.GetRequiredService<IWhoIsReviewerTodayService>()
-                            .Start(websiteUrl);
-                    }
                 }
+
+                var configuration = webHostServices.GetRequiredService<IConfiguration>();
+                var websiteUrl = configuration["Website:Url"];
+
+                var whoIsReviewerTodayService = webHostServices.GetRequiredService<IWhoIsReviewerTodayService>();
+                whoIsReviewerTodayService.Start(websiteUrl);
 
                 webHost.Run();
             }
