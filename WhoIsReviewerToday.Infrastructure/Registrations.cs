@@ -19,6 +19,7 @@ namespace WhoIsReviewerToday.Infrastructure
         public static IServiceCollection SetupServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IUpdateService, UpdateService>();
+            serviceCollection.AddScoped<IMessageUpdateService, MessageUpdateService>();
 
             return serviceCollection;
         }

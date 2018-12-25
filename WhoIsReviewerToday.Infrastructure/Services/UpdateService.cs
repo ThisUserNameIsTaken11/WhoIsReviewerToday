@@ -1,41 +1,31 @@
-﻿using System.Linq;
-using NLog;
+﻿using NLog;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using WhoIsReviewerToday.Infrastructure.Commands;
-using WhoIsReviewerToday.Infrastructure.Providers;
 
 namespace WhoIsReviewerToday.Infrastructure.Services
 {
     internal class UpdateService : IUpdateService
     {
         private static readonly Logger _logger = LogManager.GetLogger(nameof(UpdateService), typeof(UpdateService));
-        private readonly ICommand[] _botCommands;
+        private readonly IMessageUpdateService _messageUpdateService;
 
         public UpdateService(
-            IBotCommandProvider botCommandProvider)
+            IMessageUpdateService messageUpdateService)
         {
-            _botCommands = botCommandProvider.GetBotCommands().ToArray();
+            _messageUpdateService = messageUpdateService;
         }
 
         public void Update(Update update)
         {
-            if (update.Type != UpdateType.Message)
-                return;
+            _logger.Info($"Received Update ({update.Type})");
 
-            var message = update.Message;
-
-            _logger.Info($"Received Message from {message.Chat.Id}, {message.Chat.Username}");
-
-            if (message.Type != MessageType.Text)
-                return;
-
-            foreach (var command in _botCommands)
+            switch (update.Type)
             {
-                if (!command.Matches(message.Text))
-                    continue;
-
-                command.Execute(message);
+                case UpdateType.Message:
+                    _messageUpdateService.ProcessMessage(update.Message);
+                    break;
+                default:
+                    return;
             }
         }
     }
