@@ -10,9 +10,9 @@ namespace WhoIsReviewerToday.Domain.Tests.Builders
 
         public string UserName { get; set; }
 
-        public string FullName { get; set; }
+        public bool IsPrivate { get; set; }
 
-        public Chat Build() => new Chat { Id = Id, TelegramChatId = TelegramChatId, FullName = FullName, UserName = UserName };
+        public Chat Build() => new Chat { Id = Id, TelegramChatId = TelegramChatId, IsPrivate = IsPrivate, UserName = UserName };
 
         public static Chat Any() => new ChatBuilder().Build();
     }

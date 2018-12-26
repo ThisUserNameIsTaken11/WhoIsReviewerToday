@@ -17,7 +17,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
 
             _chatRepositoryMock = new Mock<IChatRepository>();
             _chatRepositoryMock.Setup(
-                    repository => repository.GetChatByTelegramChatId(It.IsAny<long>()))
+                    repository => repository.GetChatByTelegramChatIdOrDefault(It.IsAny<long>()))
                 .Returns(ChatBuilder.Any);
             _chatRepositoryMock.Setup(repository => repository.Contains(It.IsAny<long>()))
                 .Returns(false);
@@ -36,9 +36,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
         private static Message CreateMessage(
             long telegramChatId,
             string userName,
-            int telegramUserId = 123,
-            string firstName = "FirstName",
-            string lastName = "LastName") =>
+            int telegramUserId = 123) =>
             new Message
             {
                 Chat = new Chat
@@ -48,9 +46,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
                 From = new User
                 {
                     Id = telegramUserId,
-                    Username = userName,
-                    FirstName = firstName,
-                    LastName = lastName
+                    Username = userName
                 }
             };
 
@@ -130,8 +126,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
         {
             const int telegramChatId = 234;
             const string userName = "@userName";
-            const string fullName = "Pedro Gonzalez";
-            var message = CreateMessage(telegramChatId, userName, firstName: "Pedro", lastName: "Gonzalez");
+            var message = CreateMessage(telegramChatId, userName);
 
             var command = CreateCommand();
             command.Execute(message);
@@ -141,7 +136,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
                     It.Is<ChatModel>(
                         chat => chat.TelegramChatId == telegramChatId
                                 && chat.UserName == userName
-                                && chat.FullName == fullName)),
+                                && chat.IsPrivate)),
                 Times.Once);
         }
     }

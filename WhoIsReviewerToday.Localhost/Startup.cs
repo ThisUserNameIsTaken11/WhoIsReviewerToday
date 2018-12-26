@@ -30,6 +30,8 @@ namespace WhoIsReviewerToday.Localhost
                 .SetupCommands()
                 .SetupFactories()
                 .SetupRepositories();
+
+            services.AddSingleton<ILocalhostBotService, LocalhostBotService>();
         }
 
         public void ConfigureServices(IServiceCollection services)

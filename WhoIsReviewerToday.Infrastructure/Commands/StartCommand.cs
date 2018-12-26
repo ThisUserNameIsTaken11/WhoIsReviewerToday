@@ -28,7 +28,6 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
         {
             var telegramChatId = message.Chat.Id;
             var userName = message.From.Username;
-            var fullName = $"{message.From.FirstName} {message.From.LastName}";
 
             if (_chatRepository.Contains(telegramChatId))
             {
@@ -36,7 +35,7 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
                 return;
             }
 
-            if (!await TryAddChatAndSaveAsync(telegramChatId, fullName, userName))
+            if (!await TryAddChatAndSaveAsync(telegramChatId, userName))
             {
                 SendSomethingGoesWrongMessage(telegramChatId);
                 return;
@@ -54,9 +53,9 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
                 "Something goes wrong! Please ask admins and try again later");
         }
 
-        private async Task<bool> TryAddChatAndSaveAsync(long telegramChatId, string fullName, string userName)
+        private async Task<bool> TryAddChatAndSaveAsync(long telegramChatId, string userName)
         {
-            var newChat = new Chat { TelegramChatId = telegramChatId, FullName = fullName, UserName = userName };
+            var newChat = new Chat { TelegramChatId = telegramChatId, IsPrivate = true, UserName = userName };
             return await _chatRepository.TryAddChatAndSaveAsync(newChat);
         }
     }

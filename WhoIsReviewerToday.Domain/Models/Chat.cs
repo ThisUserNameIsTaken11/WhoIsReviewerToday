@@ -12,9 +12,8 @@ namespace WhoIsReviewerToday.Domain.Models
         [Required]
         public long TelegramChatId { get; set; }
 
-        [Required]
         public string UserName { get; set; }
 
-        public string FullName { get; set; }
+        public bool IsPrivate { get; set; }
     }
 }

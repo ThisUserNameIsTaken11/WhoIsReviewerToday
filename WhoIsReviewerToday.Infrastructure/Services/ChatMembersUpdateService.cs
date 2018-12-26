@@ -13,9 +13,9 @@ namespace WhoIsReviewerToday.Infrastructure.Services
     internal class ChatMembersUpdateService : IChatMembersUpdateService, IDisposable
     {
         private static readonly Logger _logger = LogManager.GetLogger(nameof(ChatMembersUpdateService), typeof(ChatMembersUpdateService));
+        private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly IChatRepository _chatRepository;
         private readonly IWhoIsReviewerTodayService _whoIsReviewerTodayService;
-        private readonly CancellationTokenSource _cancellationTokenSource;
 
         public ChatMembersUpdateService(
             IWhoIsReviewerTodayService whoIsReviewerTodayService,
@@ -34,10 +34,11 @@ namespace WhoIsReviewerToday.Infrastructure.Services
             if (message.LeftChatMember.Id != botUser.Id)
                 return;
 
-            var removedChat = _chatRepository.GetChatByTelegramChatId(message.Chat.Id);
-            _chatRepository.TryRemoveChatAndSave(removedChat);
+            var removingChat = _chatRepository.GetChatByTelegramChatIdOrDefault(message.Chat.Id);
 
-            _logger.Info($"Chat ({removedChat.Id}, {removedChat.UserName}) was removed");
+            if (removingChat != null
+                && _chatRepository.TryRemoveChatAndSave(removingChat))
+                _logger.Info($"Chat ({removingChat.Id}, {removingChat.UserName}) was removed");
         }
 
         public async void ProcessChatMembersAdded(Message message)
@@ -48,9 +49,9 @@ namespace WhoIsReviewerToday.Infrastructure.Services
                 return;
 
             var chat = message.Chat.ToDomain();
-            await _chatRepository.TryAddChatAndSaveAsync(chat);
 
-            _logger.Info($"Chat ({chat.Id}, {chat.UserName}) was added");
+            if (await _chatRepository.TryAddChatAndSaveAsync(chat))
+                _logger.Info($"Chat ({chat.Id}, {chat.UserName}) was added");
         }
 
         public void Dispose()

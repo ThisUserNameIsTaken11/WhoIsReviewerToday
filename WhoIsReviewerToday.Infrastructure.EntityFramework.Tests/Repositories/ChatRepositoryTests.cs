@@ -119,21 +119,21 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
             _chats.Add(chat);
             var repository = CreateRepository();
 
-            var actualChat = repository.GetChatByTelegramChatId(444);
+            var actualChat = repository.GetChatByTelegramChatIdOrDefault(444);
 
             actualChat.Should().Be(chat);
         }
 
         [Fact]
-        public void ThrowsExceptionWhenCannotFindDeveloperByUserName()
+        public void DoesNotThrowExceptionWhenCannotFindDeveloperByUserName()
         {
             var chat = new ChatBuilder { TelegramChatId = 444 }.Build();
             _chats.Add(chat);
             var repository = CreateRepository();
 
-            Action getChatByTelegramChatIdAction = () => repository.GetChatByTelegramChatId(222);
+            Action getChatByTelegramChatIdAction = () => repository.GetChatByTelegramChatIdOrDefault(222);
 
-            getChatByTelegramChatIdAction.Should().Throw<InvalidOperationException>();
+            getChatByTelegramChatIdAction.Should().NotThrow<InvalidOperationException>();
         }
 
         [Fact]

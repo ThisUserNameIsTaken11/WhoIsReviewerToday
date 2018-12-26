@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using WhoIsReviewerToday.Domain.Models;
 
 namespace WhoIsReviewerToday.Domain.Repositories
@@ -9,7 +10,8 @@ namespace WhoIsReviewerToday.Domain.Repositories
 
         Task<bool> TryAddChatAndSaveAsync(Chat chat);
 
-        Chat GetChatByTelegramChatId(long telegramChatId);
+        [CanBeNull]
+        Chat GetChatByTelegramChatIdOrDefault(long telegramChatId);
 
         bool TryRemoveChatAndSave(Chat chat);
     }

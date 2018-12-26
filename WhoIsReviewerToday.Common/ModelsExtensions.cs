@@ -1,4 +1,5 @@
-﻿using WhoIsReviewerToday.Domain.Models;
+﻿using Telegram.Bot.Types.Enums;
+using WhoIsReviewerToday.Domain.Models;
 
 namespace WhoIsReviewerToday.Common
 {
@@ -7,7 +8,7 @@ namespace WhoIsReviewerToday.Common
         public static Chat ToDomain(this Telegram.Bot.Types.Chat chat) =>
             new Chat
             {
-                FullName = $"{chat.FirstName} {chat.LastName}",
+                IsPrivate = chat.Type == ChatType.Private,
                 TelegramChatId = chat.Id,
                 UserName = chat.Username
             };

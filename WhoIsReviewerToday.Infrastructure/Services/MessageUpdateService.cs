@@ -9,11 +9,12 @@ namespace WhoIsReviewerToday.Infrastructure.Services
 {
     internal class MessageUpdateService : IMessageUpdateService
     {
-        private readonly IChatMembersUpdateService _chatMembersUpdateService;
         private static readonly Logger _logger = LogManager.GetLogger(nameof(MessageUpdateService), typeof(MessageUpdateService));
         private readonly ICommand[] _botCommands;
+        private readonly IChatMembersUpdateService _chatMembersUpdateService;
 
-        public MessageUpdateService(IBotCommandProvider botCommandProvider,
+        public MessageUpdateService(
+            IBotCommandProvider botCommandProvider,
             IChatMembersUpdateService chatMembersUpdateService)
         {
             _chatMembersUpdateService = chatMembersUpdateService;

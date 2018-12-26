@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using FluentAssertions;
 using Moq;
 using Telegram.Bot.Types;
@@ -28,8 +29,13 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
             _whoIsReviewerTodayServiceMock.Setup(s => s.GetBotAsync(_cancellationTokenSource.Token))
                 .ReturnsAsync(_botUser);
 
-            _chatRepositoryMock.Setup(repository => repository.GetChatByTelegramChatId(It.IsAny<long>()))
+            _chatRepositoryMock.Setup(repository => repository.GetChatByTelegramChatIdOrDefault(It.IsAny<long>()))
                 .Returns(new Domain.Models.Chat());
+
+            _chatRepositoryMock.Setup(repository => repository.TryRemoveChatAndSave(It.IsAny<Domain.Models.Chat>()))
+                .Returns(true);
+            _chatRepositoryMock.Setup(repository => repository.TryAddChatAndSaveAsync(It.IsAny<Domain.Models.Chat>()))
+                .ReturnsAsync(true);
         }
 
         private readonly Mock<IChatRepository> _chatRepositoryMock;
@@ -66,7 +72,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
             var message = CreateMessage(new Chat(), leftChatMember: new User { Id = _botUser.Id });
             service.ProcessChatMemberLeft(message);
 
-            _chatRepositoryMock.Verify(repository => repository.GetChatByTelegramChatId(message.Chat.Id), Times.Once);
+            _chatRepositoryMock.Verify(repository => repository.GetChatByTelegramChatIdOrDefault(message.Chat.Id), Times.Once);
         }
 
         [Fact]
@@ -77,7 +83,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
             var message = CreateMessage(new Chat(), leftChatMember: new User { Id = 999 });
             service.ProcessChatMemberLeft(message);
 
-            _chatRepositoryMock.Verify(repository => repository.GetChatByTelegramChatId(message.Chat.Id), Times.Never);
+            _chatRepositoryMock.Verify(repository => repository.GetChatByTelegramChatIdOrDefault(message.Chat.Id), Times.Never);
         }
 
         [Fact]
@@ -85,7 +91,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
         {
             var removedChat = new Chat().ToDomain();
             var message = CreateMessage(new Chat { Id = 222 }, leftChatMember: new User { Id = _botUser.Id });
-            _chatRepositoryMock.Setup(repository => repository.GetChatByTelegramChatId(message.Chat.Id))
+            _chatRepositoryMock.Setup(repository => repository.GetChatByTelegramChatIdOrDefault(message.Chat.Id))
                 .Returns(removedChat);
 
             var service = CreateService();
@@ -139,6 +145,19 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
             service.Dispose();
 
             _cancellationTokenSource.IsCancellationRequested.Should().BeTrue();
+        }
+
+        [Fact]
+        public void DoesNotThrowExceptionIfNull()
+        {
+            _chatRepositoryMock.Setup(repository => repository.GetChatByTelegramChatIdOrDefault(It.IsAny<long>()))
+                .Returns((Domain.Models.Chat) null);
+            var message = CreateMessage(new Chat { Id = 222 }, leftChatMember: new User { Id = _botUser.Id });
+            var service = CreateService();
+
+            Action action = () => service.ProcessChatMemberLeft(message);
+
+            action.Should().NotThrow<NullReferenceException>();
         }
     }
 }

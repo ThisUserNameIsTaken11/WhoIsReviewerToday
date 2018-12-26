@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Telegram.Bot.Args;
-using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain;
-using WhoIsReviewerToday.Infrastructure.Services;
 
 namespace WhoIsReviewerToday.Localhost
 {
@@ -26,23 +23,12 @@ namespace WhoIsReviewerToday.Localhost
                 dbInitializer.SeedIfNeeded();
             }
 
-            var whoIsReviewerTodayBot = _webHostServices.GetRequiredService<IWhoIsReviewerTodayBot>();
-            whoIsReviewerTodayBot.StartReceiving();
-            whoIsReviewerTodayBot.OnUpdate += OnUpdate;
+            var localhostBotService = _webHostServices.GetRequiredService<ILocalhostBotService>();
+            localhostBotService.Start();
 
             webHost.Run();
 
-            whoIsReviewerTodayBot.OnUpdate -= OnUpdate;
-            whoIsReviewerTodayBot.StopReceiving();
-        }
-
-        private static void OnUpdate(object sender, UpdateEventArgs e)
-        {
-            using (var scope = _webHostServices.CreateScope())
-            {
-                var updateService = scope.ServiceProvider.GetRequiredService<IUpdateService>();
-                updateService.Update(e.Update);
-            }
+            localhostBotService.Stop();
         }
 
         private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

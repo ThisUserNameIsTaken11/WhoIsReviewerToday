@@ -48,10 +48,10 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
 
             return true;
         }
-
-        public Chat GetChatByTelegramChatId(long telegramChatId)
+        
+        public Chat GetChatByTelegramChatIdOrDefault(long telegramChatId)
         {
-            return _appDbContext.Chats.First(chat => chat.TelegramChatId == telegramChatId);
+            return _appDbContext.Chats.FirstOrDefault(chat => chat.TelegramChatId == telegramChatId);
         }
 
         public bool TryRemoveChatAndSave(Chat chat)
