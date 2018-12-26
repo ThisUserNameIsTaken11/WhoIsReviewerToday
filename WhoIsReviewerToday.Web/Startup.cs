@@ -11,10 +11,12 @@ namespace WhoIsReviewerToday.Web
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             _configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         private void AddApplicationClassesRegistrations(IServiceCollection services)
@@ -30,6 +32,11 @@ namespace WhoIsReviewerToday.Web
                 .SetupCommands()
                 .SetupFactories()
                 .SetupRepositories();
+
+            if (_hostingEnvironment.IsDevelopment())
+                services.SetupStartAndStopBotServiceForDevelopment();
+            else
+                services.SetupStartAndStopBotService();
         }
 
         public void ConfigureServices(IServiceCollection services)

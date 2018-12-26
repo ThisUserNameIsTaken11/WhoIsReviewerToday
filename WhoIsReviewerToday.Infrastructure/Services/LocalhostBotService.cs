@@ -2,23 +2,24 @@
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot.Args;
 using WhoIsReviewerToday.Bot;
-using WhoIsReviewerToday.Infrastructure.Services;
+using WhoIsReviewerToday.Domain.Services;
 
-namespace WhoIsReviewerToday.Localhost
+namespace WhoIsReviewerToday.Infrastructure.Services
 {
-    public class LocalhostBotService : ILocalhostBotService
+    public class LocalhostBotService : IStartAndStopBotService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IWhoIsReviewerTodayBot _whoIsReviewerTodayBot;
 
-        public LocalhostBotService(IServiceProvider serviceProvider)
+        public LocalhostBotService(
+            IServiceProvider serviceProvider,
+            IWhoIsReviewerTodayBot whoIsReviewerTodayBot)
         {
             _serviceProvider = serviceProvider;
-            _whoIsReviewerTodayBot = serviceProvider
-                .GetRequiredService<IWhoIsReviewerTodayBot>();
+            _whoIsReviewerTodayBot = whoIsReviewerTodayBot;
         }
 
-        public void Start()
+        public void Start(string websiteUrl)
         {
             _whoIsReviewerTodayBot.StartReceiving();
             _whoIsReviewerTodayBot.OnUpdate += OnUpdate;

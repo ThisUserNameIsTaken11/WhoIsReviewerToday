@@ -1,18 +1,15 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using WhoIsReviewerToday.Domain.Services;
 
 namespace WhoIsReviewerToday.Bot
 {
-    public interface IWhoIsReviewerTodayService
+    public interface IWhoIsReviewerTodayService : IStartAndStopBotService
     {
-        void Start(string websiteUrl);
-
         void SendSimpleMessage(ChatId chartId, string text);
 
         string GetGreetings();
-
-        void Stop();
 
         Task<User> GetBotAsync(CancellationToken cancellationToken);
     }

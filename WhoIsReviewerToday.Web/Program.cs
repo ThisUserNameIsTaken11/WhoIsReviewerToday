@@ -8,6 +8,7 @@ using NLog;
 using NLog.Web;
 using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain;
+using WhoIsReviewerToday.Domain.Services;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace WhoIsReviewerToday.Web
@@ -35,12 +36,12 @@ namespace WhoIsReviewerToday.Web
                 var configuration = webHostServices.GetRequiredService<IConfiguration>();
                 var websiteUrl = configuration["Website:Url"];
 
-                var whoIsReviewerTodayService = webHostServices.GetRequiredService<IWhoIsReviewerTodayService>();
-                whoIsReviewerTodayService.Start(websiteUrl);
+                var startAndStopBotService = webHostServices.GetRequiredService<IStartAndStopBotService>();
+                startAndStopBotService.Start(websiteUrl);
 
                 webHost.Run();
 
-                whoIsReviewerTodayService.Stop();
+                startAndStopBotService.Stop();
             }
             catch (Exception ex)
             {
