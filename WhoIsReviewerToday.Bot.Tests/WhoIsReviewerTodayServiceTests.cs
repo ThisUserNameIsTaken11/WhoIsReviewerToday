@@ -95,16 +95,6 @@ namespace WhoIsReviewerToday.Bot.Tests
         }
 
         [Fact]
-        public void CancelsTokenOnStop()
-        {
-            var service = CreateService();
-
-            service.Stop();
-
-            _cancellationTokenSource.IsCancellationRequested.Should().BeTrue();
-        }
-
-        [Fact]
         public void DeletesWebHookOnStop()
         {
             var service = CreateService();

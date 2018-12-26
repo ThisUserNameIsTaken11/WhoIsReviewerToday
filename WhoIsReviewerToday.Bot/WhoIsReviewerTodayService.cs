@@ -40,14 +40,7 @@ namespace WhoIsReviewerToday.Bot
 
         public void Stop()
         {
-            if (_cancellationTokenSource.IsCancellationRequested)
-                return;
-
             _whoIsReviewerTodayBot.DeleteWebhookAsync(CancellationToken.None);
-
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
-
             _logger.Info($"{nameof(WhoIsReviewerTodayService)} is successfully stoped");
         }
 
@@ -60,7 +53,10 @@ namespace WhoIsReviewerToday.Bot
 
         public void Dispose()
         {
+            _cancellationTokenSource.Cancel();
             Stop();
+
+            _cancellationTokenSource.Dispose();
         }
     }
 }

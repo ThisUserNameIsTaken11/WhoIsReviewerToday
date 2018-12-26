@@ -39,6 +39,8 @@ namespace WhoIsReviewerToday.Web
                 whoIsReviewerTodayService.Start(websiteUrl);
 
                 webHost.Run();
+
+                whoIsReviewerTodayService.Stop();
             }
             catch (Exception ex)
             {
