@@ -26,7 +26,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
 
             _whoIsReviewerTodayServiceMock.Verify(
                 service => service
-                    .SendSimpleMessage(It.Is<ChatId>(id => id.Identifier == 321), "this is help command"));
+                    .SendSimpleMessage(It.Is<ChatId>(id => id.Identifier == 321), "I can't help you! Sorry!"));
         }
     }
 }

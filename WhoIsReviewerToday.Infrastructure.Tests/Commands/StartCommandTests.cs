@@ -2,8 +2,8 @@
 using Telegram.Bot.Types;
 using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Repositories;
+using WhoIsReviewerToday.Domain.Tests.Builders;
 using WhoIsReviewerToday.Infrastructure.Commands;
-using WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Builders;
 using Xunit;
 using ChatModel = WhoIsReviewerToday.Domain.Models.Chat;
 
@@ -87,7 +87,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
                 repository => repository.TryAddChatAndSaveAsync(It.IsAny<ChatModel>()),
                 Times.Never);
         }
-        
+
         [Fact]
         public void SendsMessageWhenTryAddChatAndSaveReturnsFalse()
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using FluentAssertions;
 using Moq;
 using Telegram.Bot.Types;
@@ -91,6 +92,48 @@ namespace WhoIsReviewerToday.Bot.Tests
             var greetings = service.GetGreetings();
 
             greetings.Should().Be(helloWorld);
+        }
+
+        [Fact]
+        public void CancelsTokenOnStop()
+        {
+            var service = CreateService();
+
+            service.Stop();
+
+            _cancellationTokenSource.IsCancellationRequested.Should().BeTrue();
+        }
+
+        [Fact]
+        public void DeletesWebHookOnStop()
+        {
+            var service = CreateService();
+
+            service.Stop();
+
+            _whoIsReviewerTodayBotMock.Verify(bot => bot.DeleteWebhookAsync(CancellationToken.None), Times.Once);
+        }
+
+        [Fact]
+        public void DoesNotThrowWhenStopTwice()
+        {
+            var service = CreateService();
+
+            Action action = service.Stop;
+            action.Invoke();
+
+            action.Should().NotThrow<ObjectDisposedException>();
+        }
+
+        [Fact]
+        public void CallsGetMeAsyncOnGetBotAsync()
+        {
+            var service = CreateService();
+
+            var cancellationToken = CancellationToken.None;
+            service.GetBotAsync(cancellationToken);
+
+            _whoIsReviewerTodayBotMock.Verify(bot => bot.GetMeAsync(cancellationToken), Times.Once);
         }
     }
 }

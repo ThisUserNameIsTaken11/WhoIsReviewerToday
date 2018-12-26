@@ -39,14 +39,38 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             {
                 await AddChatAsync(chat);
                 _appDbContext.SaveChanges();
-
-                return true;
             }
             catch (Exception e)
             {
                 _logger.Error(e);
                 return false;
             }
+
+            return true;
+        }
+
+        public Chat GetChatByTelegramChatId(long telegramChatId)
+        {
+            return _appDbContext.Chats.First(chat => chat.TelegramChatId == telegramChatId);
+        }
+
+        public bool TryRemoveChatAndSave(Chat chat)
+        {
+            if (!Contains(chat.TelegramChatId))
+                return false;
+
+            try
+            {
+                RemoveChat(chat);
+                _appDbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e);
+                return false;
+            }
+
+            return true;
         }
 
         private async Task AddChatAsync(Chat chat)
@@ -54,9 +78,9 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             await _appDbContext.Chats.AddAsync(chat, _cancellationTokenSource.Token);
         }
 
-        public Chat GetChatByTelegramChatId(long telegramChatId)
+        private void RemoveChat(Chat chat)
         {
-            return _appDbContext.Chats.First(chat => chat.TelegramChatId == telegramChatId);
+            _appDbContext.Chats.Remove(chat);
         }
 
         public void Dispose()

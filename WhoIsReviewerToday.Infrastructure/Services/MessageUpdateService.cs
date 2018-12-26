@@ -9,11 +9,14 @@ namespace WhoIsReviewerToday.Infrastructure.Services
 {
     internal class MessageUpdateService : IMessageUpdateService
     {
+        private readonly IChatMembersUpdateService _chatMembersUpdateService;
         private static readonly Logger _logger = LogManager.GetLogger(nameof(MessageUpdateService), typeof(MessageUpdateService));
         private readonly ICommand[] _botCommands;
 
-        public MessageUpdateService(IBotCommandProvider botCommandProvider)
+        public MessageUpdateService(IBotCommandProvider botCommandProvider,
+            IChatMembersUpdateService chatMembersUpdateService)
         {
+            _chatMembersUpdateService = chatMembersUpdateService;
             _botCommands = botCommandProvider.GetBotCommands().ToArray();
         }
 
@@ -21,16 +24,29 @@ namespace WhoIsReviewerToday.Infrastructure.Services
         {
             _logger.Info($"Received Message from {message.Chat.Id}, {message.Chat.Username}");
 
-            if (message.Type != MessageType.Text)
-                return;
-
-            foreach (var command in _botCommands)
+            switch (message.Type)
             {
-                if (!command.Matches(message.Text))
-                    continue;
+                case MessageType.Text:
+                {
+                    foreach (var command in _botCommands)
+                    {
+                        if (!command.Matches(message.Text))
+                            continue;
 
-                command.Execute(message);
-                break;
+                        command.Execute(message);
+                        break;
+                    }
+
+                    break;
+                }
+                case MessageType.ChatMembersAdded:
+                    _chatMembersUpdateService.ProcessChatMembersAdded(message);
+                    break;
+                case MessageType.ChatMemberLeft:
+                    _chatMembersUpdateService.ProcessChatMemberLeft(message);
+                    break;
+                default:
+                    return;
             }
         }
     }

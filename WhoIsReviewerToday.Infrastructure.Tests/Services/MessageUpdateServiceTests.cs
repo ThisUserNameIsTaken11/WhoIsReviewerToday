@@ -12,13 +12,16 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
         public MessageUpdateServiceTests()
         {
             _commandProviderMock = new Mock<IBotCommandProvider>();
+            _chatMembersUpdateServiceMock = new Mock<IChatMembersUpdateService>();
         }
 
         private readonly Mock<IBotCommandProvider> _commandProviderMock;
+        private readonly Mock<IChatMembersUpdateService> _chatMembersUpdateServiceMock;
 
         private MessageUpdateService CreateService() =>
             new MessageUpdateService(
-                _commandProviderMock.Object);
+                _commandProviderMock.Object,
+                _chatMembersUpdateServiceMock.Object);
 
         private static Mock<ICommand> CreateAndSetupCommandMock(string messageText, bool value)
         {
@@ -104,6 +107,34 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
             service.ProcessMessage(CreateMessage(null));
 
             commandMock.Verify(command => command.Execute(It.IsAny<Message>()), Times.Never);
+        }
+
+        [Fact]
+        public void CallsProcessChatMemberLeft()
+        {
+            var commandMock = CreateAndSetupCommandMock(It.IsAny<string>(), false);
+            SetupBotCommands(_commandProviderMock, commandMock.Object);
+            var service = CreateService();
+            var message = CreateMessage(null);
+            message.LeftChatMember = new User();
+
+            service.ProcessMessage(message);
+
+            _chatMembersUpdateServiceMock.Verify(s => s.ProcessChatMemberLeft(message), Times.Once);
+        }
+
+        [Fact]
+        public void CallsProcessChatMembersAdded()
+        {
+            var commandMock = CreateAndSetupCommandMock(It.IsAny<string>(), false);
+            SetupBotCommands(_commandProviderMock, commandMock.Object);
+            var service = CreateService();
+            var message = CreateMessage(null);
+            message.NewChatMembers = new User[1];
+
+            service.ProcessMessage(message);
+
+            _chatMembersUpdateServiceMock.Verify(s => s.ProcessChatMembersAdded(message), Times.Once);
         }
     }
 }

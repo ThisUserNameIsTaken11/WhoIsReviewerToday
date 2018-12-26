@@ -25,6 +25,16 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests
                 .Callback((T model, CancellationToken token) => { sourceList.Add(model); })
                 .Returns((T model, CancellationToken token) => Task.FromResult((EntityEntry<T>) null));
 
+            dbSet
+                .Setup(_ => _.AddRangeAsync(It.IsAny<IEnumerable<T>>(), It.IsAny<CancellationToken>()))
+                .Callback(
+                    (IEnumerable<T> models, CancellationToken token) =>
+                    {
+                        foreach (var model in models)
+                            sourceList.Add(model);
+                    })
+                .Returns((IEnumerable<T> models, CancellationToken token) => Task.FromResult((EntityEntry<T>) null));
+
             return dbSet.Object;
         }
     }

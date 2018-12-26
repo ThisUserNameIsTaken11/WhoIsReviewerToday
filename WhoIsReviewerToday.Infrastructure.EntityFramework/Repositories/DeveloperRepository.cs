@@ -16,7 +16,6 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
         private static readonly Logger _logger = LogManager.GetLogger(nameof(DeveloperRepository), typeof(DeveloperRepository));
         private readonly IAppDbContext _appDbContext;
         private readonly CancellationTokenSource _cancellationTokenSource;
-        private readonly Lazy<IEnumerable<Developer>> _itemsLazyField;
 
         public DeveloperRepository(
             IAppDbContext appDbContext,
@@ -24,11 +23,9 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
         {
             _appDbContext = appDbContext;
             _cancellationTokenSource = cancellationTokenSourceFactory.Create();
-
-            _itemsLazyField = new Lazy<IEnumerable<Developer>>(() => _appDbContext.Developers.ToArray());
         }
 
-        public IEnumerable<Developer> Items => _itemsLazyField.Value;
+        public IEnumerable<Developer> Items => _appDbContext.Developers;
 
         public bool Contains(string userName)
         {
@@ -54,14 +51,14 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             {
                 _appDbContext.Developers.Update(developer);
                 _appDbContext.SaveChanges();
-
-                return true;
             }
             catch (Exception e)
             {
                 _logger.Error(e);
                 return false;
             }
+
+            return true;
         }
 
         public void Dispose()

@@ -17,7 +17,7 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
         public override void Execute(Message message)
         {
             var chatId = new ChatId(message.Chat.Id);
-            _whoIsReviewerTodayService.SendSimpleMessage(chatId, "this is help command");
+            _whoIsReviewerTodayService.SendSimpleMessage(chatId, "I can't help you! Sorry!");
         }
     }
 }

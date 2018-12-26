@@ -10,5 +10,7 @@ namespace WhoIsReviewerToday.Domain.Repositories
         Task<bool> TryAddChatAndSaveAsync(Chat chat);
 
         Chat GetChatByTelegramChatId(long telegramChatId);
+
+        bool TryRemoveChatAndSave(Chat chat);
     }
 }

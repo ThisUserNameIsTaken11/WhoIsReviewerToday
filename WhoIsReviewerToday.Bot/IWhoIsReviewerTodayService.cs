@@ -1,4 +1,6 @@
-﻿using Telegram.Bot.Types;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace WhoIsReviewerToday.Bot
 {
@@ -11,5 +13,7 @@ namespace WhoIsReviewerToday.Bot
         string GetGreetings();
 
         void Stop();
+
+        Task<User> GetBotAsync(CancellationToken cancellationToken);
     }
 }

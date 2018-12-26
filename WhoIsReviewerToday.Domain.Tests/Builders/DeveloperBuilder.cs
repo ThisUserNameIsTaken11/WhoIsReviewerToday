@@ -1,6 +1,6 @@
 ﻿using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Builders
+namespace WhoIsReviewerToday.Domain.Tests.Builders
 {
     public class DeveloperBuilder
     {

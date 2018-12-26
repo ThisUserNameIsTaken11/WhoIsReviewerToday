@@ -5,9 +5,9 @@ using FluentAssertions;
 using Moq;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Domain.Models;
+using WhoIsReviewerToday.Domain.Tests.Builders;
 using WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext;
 using WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories;
-using WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Builders;
 using Xunit;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
@@ -79,6 +79,19 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
         }
 
         [Fact]
+        public async void ReturnsFalseWhenExceptionHappenedOnTryAddChatAndSaveAsync()
+        {
+            _appDbContextMock.Setup(context => context.SaveChanges())
+                .Throws<Exception>();
+            var chat = ChatBuilder.Any();
+            var repository = CreateRepository();
+
+            var result = await repository.TryAddChatAndSaveAsync(chat);
+
+            result.Should().BeFalse();
+        }
+
+        [Fact]
         public async void CannotAddChatToRepositoryWithTheSameTelegramId()
         {
             var repository = CreateRepository();
@@ -121,6 +134,43 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
             Action getChatByTelegramChatIdAction = () => repository.GetChatByTelegramChatId(222);
 
             getChatByTelegramChatIdAction.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void RemovesChatFromRepository()
+        {
+            var chat = new ChatBuilder { TelegramChatId = 123 }.Build();
+            _chats.Add(chat);
+            var repository = CreateRepository();
+
+            var result = repository.TryRemoveChatAndSave(chat);
+
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void SavesChangesOnTryRemoveChatAndSave()
+        {
+            var chat = new ChatBuilder { TelegramChatId = 123 }.Build();
+            _chats.Add(chat);
+            var repository = CreateRepository();
+
+            repository.TryRemoveChatAndSave(chat);
+
+            _appDbContextMock.Verify(context => context.SaveChanges(), Times.Once);
+        }
+
+        [Fact]
+        public void ReturnsFalseWhenExceptionHappenedOnTryRemoveChatAndSave()
+        {
+            _appDbContextMock.Setup(context => context.SaveChanges())
+                .Throws<Exception>();
+            var chat = ChatBuilder.Any();
+            var repository = CreateRepository();
+
+            var result = repository.TryRemoveChatAndSave(chat);
+
+            result.Should().BeFalse();
         }
     }
 }

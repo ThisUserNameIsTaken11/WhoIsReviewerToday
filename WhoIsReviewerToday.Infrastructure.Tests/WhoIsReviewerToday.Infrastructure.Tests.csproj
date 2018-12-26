@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhoIsReviewerToday.Domain.Tests\WhoIsReviewerToday.Domain.Tests.csproj" />
     <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests\WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.csproj" />
     <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure\WhoIsReviewerToday.Infrastructure.csproj" />
   </ItemGroup>

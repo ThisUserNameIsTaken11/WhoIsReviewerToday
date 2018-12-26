@@ -5,9 +5,9 @@ using FluentAssertions;
 using Moq;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Domain.Models;
+using WhoIsReviewerToday.Domain.Tests.Builders;
 using WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext;
 using WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories;
-using WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Builders;
 using Xunit;
 
 namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories

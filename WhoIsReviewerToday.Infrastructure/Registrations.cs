@@ -20,6 +20,10 @@ namespace WhoIsReviewerToday.Infrastructure
         {
             serviceCollection.AddScoped<IUpdateService, UpdateService>();
             serviceCollection.AddScoped<IMessageUpdateService, MessageUpdateService>();
+            serviceCollection.AddScoped<IChatMembersUpdateService, ChatMembersUpdateService>();
+            serviceCollection.AddScoped<IShuffleService, ShuffleService>();
+            serviceCollection.AddScoped<IGenerateReviewScheduleService, GenerateReviewScheduleService>();
+            serviceCollection.AddScoped<IAppointDutyOnReviewService, AppointDutyOnReviewService>();
 
             return serviceCollection;
         }

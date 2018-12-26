@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using NLog;
 using Telegram.Bot.Types;
 using WhoIsReviewerToday.Domain.Factories;
@@ -19,6 +20,8 @@ namespace WhoIsReviewerToday.Bot
             _whoIsReviewerTodayBot = whoIsReviewerTodayBot;
             _cancellationTokenSource = cancellationTokenSourceFactory.Create();
         }
+
+        public Task<User> GetBotAsync(CancellationToken cancellationToken) => _whoIsReviewerTodayBot.GetMeAsync(cancellationToken);
 
         public async void Start(string websiteUrl)
         {
