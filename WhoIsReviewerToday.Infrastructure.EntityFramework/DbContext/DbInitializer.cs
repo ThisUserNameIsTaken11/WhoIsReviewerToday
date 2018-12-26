@@ -17,9 +17,8 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
         public void SeedIfNeeded()
         {
             var wereDevelopersAdded = TrySeedDevelopers();
-            var wereReviewsAdded = TrySeedReviews();
 
-            if (wereDevelopersAdded || wereReviewsAdded)
+            if (wereDevelopersAdded)
                 _appDbContext.SaveChanges();
         }
 
@@ -116,27 +115,6 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
                         UserName = "@Speshial1985"
                     }
                 });
-
-            return true;
-        }
-
-        private bool TrySeedReviews()
-        {
-            if (_appDbContext.Reviews.Any())
-                return false;
-
-            var startedDateTime = DateTime.Now;
-
-            foreach (var developer in _appDbContext.Developers)
-            {
-                var dateTime = startedDateTime.AddDays(1);
-                _appDbContext.Reviews.Add(
-                    new Review
-                    {
-                        DateTime = dateTime,
-                        Developer = developer
-                    });
-            }
 
             return true;
         }
