@@ -18,16 +18,9 @@ namespace WhoIsReviewerToday.Infrastructure.Services
             _generateReviewScheduleService = generateReviewScheduleService;
         }
 
-        public async Task<bool> TryAppointDutiesForMobileAndSaveAsync(DateTime startedDateTime)
+        public async Task<bool> TryAppointDutiesAndSaveAsync(DateTime startedDateTime, Team team)
         {
-            var reviews = _generateReviewScheduleService.GenerateReviewDuties(startedDateTime, Team.Mobile);
-
-            return await _reviewRepository.TryAddRangeAndSaveAsync(reviews);
-        }
-
-        public async Task<bool> TryAppointDutiesForDesktopAndSaveAsync(DateTime startedDateTime)
-        {
-            var reviews = _generateReviewScheduleService.GenerateReviewDuties(startedDateTime, Team.Desktop);
+            var reviews = _generateReviewScheduleService.GenerateReviewDuties(startedDateTime, team);
 
             return await _reviewRepository.TryAddRangeAndSaveAsync(reviews);
         }

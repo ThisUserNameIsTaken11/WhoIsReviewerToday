@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
-using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain;
 using WhoIsReviewerToday.Domain.Services;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
@@ -36,8 +35,10 @@ namespace WhoIsReviewerToday.Web
                 var configuration = webHostServices.GetRequiredService<IConfiguration>();
                 var websiteUrl = configuration["Website:Url"];
 
+                var schedulerService = webHostServices.GetRequiredService<ISchedulerService>();
                 var startAndStopBotService = webHostServices.GetRequiredService<IStartAndStopBotService>();
                 startAndStopBotService.Start(websiteUrl);
+                schedulerService.StartScheduler();
 
                 webHost.Run();
 

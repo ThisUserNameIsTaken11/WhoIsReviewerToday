@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Services;
 
 namespace WhoIsReviewerToday.Infrastructure.Services
 {
-    public class LocalhostBotService : IStartAndStopBotService
+    public class LocalhostBotService : IStartAndStopBotService, ISendMessageService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IWhoIsReviewerTodayBot _whoIsReviewerTodayBot;
@@ -17,6 +18,16 @@ namespace WhoIsReviewerToday.Infrastructure.Services
         {
             _serviceProvider = serviceProvider;
             _whoIsReviewerTodayBot = whoIsReviewerTodayBot;
+        }
+
+        public void SendMessage(long telegramChatId, string text)
+        {
+            _whoIsReviewerTodayBot.SendTextMessageAsync(new ChatId(telegramChatId), text);
+        }
+
+        public void SendMessage(string username, string text)
+        {
+            _whoIsReviewerTodayBot.SendTextMessageAsync(new ChatId(username), text);
         }
 
         public void Start(string websiteUrl)

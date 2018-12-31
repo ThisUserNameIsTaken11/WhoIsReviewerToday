@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure.EntityFramework\WhoIsReviewerToday.Infrastructure.EntityFramework.csproj" />
+    <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure.Scheduling\WhoIsReviewerToday.Infrastructure.Scheduling.csproj" />
     <ProjectReference Include="..\WhoIsReviewerToday.Infrastructure\WhoIsReviewerToday.Infrastructure.csproj" />
   </ItemGroup>
 

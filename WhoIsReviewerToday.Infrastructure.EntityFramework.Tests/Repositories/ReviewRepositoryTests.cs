@@ -46,6 +46,15 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
         }
 
         [Fact]
+        public void GetsItemsFromDbContext()
+        {
+            var repository = CreateRepository();
+
+            var items = repository.Items;
+            items.Should().BeEquivalentTo(_reviews);
+        }
+
+        [Fact]
         public async void CallsAddRangeAsyncOnTryAddRangeAndSaveAsync()
         {
             var repository = CreateRepository();
@@ -77,7 +86,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Tests.Repositories
 
             result.Should().BeFalse();
         }
-        
+
         [Fact]
         public async void ReturnsTrueOnTryAddRangeAndSaveAsyncWhenSunnyDay()
         {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Infrastructure;
 using WhoIsReviewerToday.Infrastructure.EntityFramework;
+using WhoIsReviewerToday.Infrastructure.Scheduling;
 
 namespace WhoIsReviewerToday.Web
 {
@@ -31,6 +32,7 @@ namespace WhoIsReviewerToday.Web
                 .SetupServices()
                 .SetupCommands()
                 .SetupFactories()
+                .SetupScheduling()
                 .SetupRepositories();
 
             if (_hostingEnvironment.IsDevelopment())

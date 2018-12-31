@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             _cancellationTokenSource = cancellationTokenSourceFactory.Create();
         }
 
+        public IEnumerable<Chat> Items => _appDbContext.Chats;
+
         public bool Contains(long telegramChatId)
         {
             return _appDbContext.Chats.Any(chat => chat.TelegramChatId == telegramChatId);
@@ -48,7 +51,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
 
             return true;
         }
-        
+
         public Chat GetChatByTelegramChatIdOrDefault(long telegramChatId)
         {
             return _appDbContext.Chats.FirstOrDefault(chat => chat.TelegramChatId == telegramChatId);

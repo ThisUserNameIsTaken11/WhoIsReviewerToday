@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using WhoIsReviewerToday.Domain.Factories;
+using WhoIsReviewerToday.Domain.Providers;
 using WhoIsReviewerToday.Domain.Services;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using WhoIsReviewerToday.Infrastructure.Factories;
@@ -13,6 +14,7 @@ namespace WhoIsReviewerToday.Infrastructure
         public static IServiceCollection SetupProviders(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IBotCommandProvider, BotCommandProvider>();
+            serviceCollection.AddScoped<IReviewByDateProvider, ReviewByDateProvider>();
 
             return serviceCollection;
         }
@@ -20,6 +22,7 @@ namespace WhoIsReviewerToday.Infrastructure
         public static IServiceCollection SetupStartAndStopBotServiceForDevelopment(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IStartAndStopBotService, LocalhostBotService>();
+            serviceCollection.AddSingleton<ISendMessageService, LocalhostBotService>();
 
             return serviceCollection;
         }

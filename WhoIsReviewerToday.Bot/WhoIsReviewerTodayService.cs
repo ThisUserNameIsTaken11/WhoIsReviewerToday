@@ -58,5 +58,9 @@ namespace WhoIsReviewerToday.Bot
 
             _cancellationTokenSource.Dispose();
         }
+
+        public void SendMessage(long telegramChatId, string text) => SendSimpleMessage(new ChatId(telegramChatId), text);
+
+        public void SendMessage(string username, string text) => SendSimpleMessage(new ChatId(username), text);
     }
 }

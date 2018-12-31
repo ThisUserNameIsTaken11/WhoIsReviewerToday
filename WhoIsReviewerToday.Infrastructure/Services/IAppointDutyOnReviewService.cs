@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WhoIsReviewerToday.Domain.Models;
 
 namespace WhoIsReviewerToday.Infrastructure.Services
 {
     public interface IAppointDutyOnReviewService
     {
-        Task<bool> TryAppointDutiesForMobileAndSaveAsync(DateTime startedDateTime);
-
-        Task<bool> TryAppointDutiesForDesktopAndSaveAsync(DateTime startedDateTime);
+        Task<bool> TryAppointDutiesAndSaveAsync(DateTime startedDateTime, Team team);
     }
 }

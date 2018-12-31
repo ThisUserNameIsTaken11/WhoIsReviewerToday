@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using WhoIsReviewerToday.Domain.Models;
 
@@ -14,5 +15,7 @@ namespace WhoIsReviewerToday.Domain.Repositories
         Chat GetChatByTelegramChatIdOrDefault(long telegramChatId);
 
         bool TryRemoveChatAndSave(Chat chat);
+
+        IEnumerable<Chat> Items { get; }
     }
 }

@@ -16,7 +16,7 @@ namespace WhoIsReviewerToday.Bot.Tests
 
             var greetings = bot.GetGreetings();
 
-            greetings.Should().Be("Hello, World! I am user 710490980 and my name is WhoIsReviewerToday.");
+            greetings.Should().MatchRegex("Hello, World! I am user [0-9]* and my name is [a-zA-Z0-9]*.");
         }
     }
 }

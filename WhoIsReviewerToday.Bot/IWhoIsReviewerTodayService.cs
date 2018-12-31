@@ -5,7 +5,7 @@ using WhoIsReviewerToday.Domain.Services;
 
 namespace WhoIsReviewerToday.Bot
 {
-    public interface IWhoIsReviewerTodayService : IStartAndStopBotService
+    public interface IWhoIsReviewerTodayService : IStartAndStopBotService, ISendMessageService
     {
         void SendSimpleMessage(ChatId chartId, string text);
 

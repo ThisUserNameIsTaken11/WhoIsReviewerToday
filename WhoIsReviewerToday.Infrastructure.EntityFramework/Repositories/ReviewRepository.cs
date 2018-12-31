@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using NLog;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Domain.Models;
 using WhoIsReviewerToday.Domain.Repositories;
@@ -11,6 +13,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
 {
     internal class ReviewRepository : IReviewRepository, IDisposable
     {
+        private static readonly Logger _logger = LogManager.GetLogger(nameof(ReviewRepository), typeof(ReviewRepository));
         private readonly IAppDbContext _appDbContext;
         private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -22,7 +25,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             _cancellationTokenSource = cancellationTokenSourceFactory.Create();
         }
 
-        public IEnumerable<Review> Items => _appDbContext.Reviews;
+        public IEnumerable<Review> Items => _appDbContext.Reviews.Include(review => review.Developer);
 
         public async Task<bool> TryAddRangeAndSaveAsync(IEnumerable<Review> reviews)
         {
@@ -33,7 +36,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Error(e);
                 return false;
             }
 
