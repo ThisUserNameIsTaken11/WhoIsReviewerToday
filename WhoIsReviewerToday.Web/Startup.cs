@@ -31,8 +31,10 @@ namespace WhoIsReviewerToday.Web
                 .SetupProviders()
                 .SetupServices()
                 .SetupCommands()
+                .SetupCalendars()
                 .SetupFactories()
                 .SetupScheduling()
+                .SetupAppService()
                 .SetupRepositories();
 
             if (_hostingEnvironment.IsDevelopment())

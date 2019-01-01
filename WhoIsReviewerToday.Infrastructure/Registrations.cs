@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WhoIsReviewerToday.Domain.Calendar;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Domain.Services;
+using WhoIsReviewerToday.Infrastructure.Calendar;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using WhoIsReviewerToday.Infrastructure.Factories;
 using WhoIsReviewerToday.Infrastructure.Providers;
@@ -50,6 +52,13 @@ namespace WhoIsReviewerToday.Infrastructure
         {
             serviceCollection.AddScoped<ICommand, StartCommand>();
             serviceCollection.AddScoped<ICommand, HelpCommand>();
+
+            return serviceCollection;
+        }
+
+        public static IServiceCollection SetupCalendars(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton<IHolidaysCalendar, HolidaysCalendar>();
 
             return serviceCollection;
         }

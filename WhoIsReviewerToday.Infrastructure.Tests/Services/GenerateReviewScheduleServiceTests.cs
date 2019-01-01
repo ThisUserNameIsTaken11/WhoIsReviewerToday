@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Moq;
+using WhoIsReviewerToday.Domain.Calendar;
 using WhoIsReviewerToday.Domain.Models;
 using WhoIsReviewerToday.Domain.Repositories;
 using WhoIsReviewerToday.Domain.Tests.Builders;
@@ -15,10 +16,12 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
     {
         private readonly Mock<IDeveloperRepository> _developerRepositoryMock;
         private readonly Dictionary<Team, IEnumerable<Developer>> _developersPerTeamDictionary;
+        private readonly Mock<IHolidaysCalendar> _holidaysCalendarMock;
         private readonly Mock<IShuffleService> _shuffleServiceMock;
 
         public GenerateReviewScheduleServiceTests()
         {
+            _holidaysCalendarMock = new Mock<IHolidaysCalendar>();
             _developerRepositoryMock = new Mock<IDeveloperRepository>();
             _shuffleServiceMock = new Mock<IShuffleService>();
 
@@ -42,7 +45,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Services
         }
 
         private GenerateReviewScheduleService CreateService() =>
-            new GenerateReviewScheduleService(_developerRepositoryMock.Object, _shuffleServiceMock.Object);
+            new GenerateReviewScheduleService(_developerRepositoryMock.Object, _shuffleServiceMock.Object, _holidaysCalendarMock.Object);
 
         [Theory]
         [InlineData(Team.Desktop)]
