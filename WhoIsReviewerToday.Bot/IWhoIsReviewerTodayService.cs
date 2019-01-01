@@ -7,8 +7,6 @@ namespace WhoIsReviewerToday.Bot
 {
     public interface IWhoIsReviewerTodayService : IStartAndStopBotService, ISendMessageService
     {
-        void SendSimpleMessage(ChatId chartId, string text);
-
         string GetGreetings();
 
         Task<User> GetBotAsync(CancellationToken cancellationToken);

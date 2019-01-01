@@ -1,23 +1,22 @@
 ﻿using Telegram.Bot.Types;
-using WhoIsReviewerToday.Bot;
+using WhoIsReviewerToday.Domain.Services;
 
 namespace WhoIsReviewerToday.Infrastructure.Commands
 {
     public class HelpCommand : SingleWordCommandBase
     {
-        private readonly IWhoIsReviewerTodayService _whoIsReviewerTodayService;
+        private readonly ISendMessageService _sendMessageService;
 
-        public HelpCommand(IWhoIsReviewerTodayService whoIsReviewerTodayService)
+        public HelpCommand(ISendMessageService sendMessageService)
         {
-            _whoIsReviewerTodayService = whoIsReviewerTodayService;
+            _sendMessageService = sendMessageService;
         }
 
         protected override string Code { get; } = "/help";
 
         public override void Execute(Message message)
         {
-            var chatId = new ChatId(message.Chat.Id);
-            _whoIsReviewerTodayService.SendSimpleMessage(chatId, "I can't help you! Sorry!");
+            _sendMessageService.TrySendMessageAsync(message.Chat.Id, "I can't help you! Sorry!");
         }
     }
 }

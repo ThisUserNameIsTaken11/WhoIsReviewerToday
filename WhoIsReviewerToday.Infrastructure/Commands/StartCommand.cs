@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using NLog;
 using Telegram.Bot.Types;
-using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Repositories;
+using WhoIsReviewerToday.Domain.Services;
 using Chat = WhoIsReviewerToday.Domain.Models.Chat;
 
 namespace WhoIsReviewerToday.Infrastructure.Commands
@@ -10,15 +10,15 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
     public class StartCommand : SingleWordCommandBase
     {
         private static readonly Logger _logger = LogManager.GetLogger(nameof(StartCommand), typeof(StartCommand));
-
         private readonly IChatRepository _chatRepository;
-        private readonly IWhoIsReviewerTodayService _whoIsReviewerTodayService;
+
+        private readonly ISendMessageService _sendMessageService;
 
         public StartCommand(
-            IWhoIsReviewerTodayService whoIsReviewerTodayService,
+            ISendMessageService sendMessageService,
             IChatRepository chatRepository)
         {
-            _whoIsReviewerTodayService = whoIsReviewerTodayService;
+            _sendMessageService = sendMessageService;
             _chatRepository = chatRepository;
         }
 
@@ -41,15 +41,15 @@ namespace WhoIsReviewerToday.Infrastructure.Commands
                 return;
             }
 
-            _whoIsReviewerTodayService.SendSimpleMessage(
-                new ChatId(telegramChatId),
+            await _sendMessageService.TrySendMessageAsync(
+                telegramChatId,
                 "I am glad to welcome you! This chat has been added to the repository and I'll be following you");
         }
 
-        private void SendSomethingGoesWrongMessage(long telegramChatId)
+        private async void SendSomethingGoesWrongMessage(long telegramChatId)
         {
-            _whoIsReviewerTodayService.SendSimpleMessage(
-                new ChatId(telegramChatId),
+            await _sendMessageService.TrySendMessageAsync(
+                telegramChatId,
                 "Something goes wrong! Please ask admins and try again later");
         }
 

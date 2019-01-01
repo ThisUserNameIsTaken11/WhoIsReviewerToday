@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using WhoIsReviewerToday.Domain.Models;
-using WhoIsReviewerToday.Domain.Providers;
 using WhoIsReviewerToday.Domain.Repositories;
 using WhoIsReviewerToday.Infrastructure.Services;
 

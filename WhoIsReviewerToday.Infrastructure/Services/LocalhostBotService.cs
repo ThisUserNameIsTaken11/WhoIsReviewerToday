@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot.Args;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Services;
@@ -20,14 +22,18 @@ namespace WhoIsReviewerToday.Infrastructure.Services
             _whoIsReviewerTodayBot = whoIsReviewerTodayBot;
         }
 
-        public void SendMessage(long telegramChatId, string text)
+        public async Task<bool> TrySendMessageAsync(long telegramChatId, string text)
         {
-            _whoIsReviewerTodayBot.SendTextMessageAsync(new ChatId(telegramChatId), text);
-        }
+            try
+            {
+                await _whoIsReviewerTodayBot.SendTextMessageAsync(new ChatId(telegramChatId), text);
+            }
+            catch (ApiRequestException)
+            {
+                return false;
+            }
 
-        public void SendMessage(string username, string text)
-        {
-            _whoIsReviewerTodayBot.SendTextMessageAsync(new ChatId(username), text);
+            return true;
         }
 
         public void Start(string websiteUrl)

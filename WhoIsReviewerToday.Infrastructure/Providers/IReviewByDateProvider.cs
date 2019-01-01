@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WhoIsReviewerToday.Domain.Models;
 
-namespace WhoIsReviewerToday.Domain.Providers
+namespace WhoIsReviewerToday.Infrastructure.Providers
 {
     public interface IReviewByDateProvider
     {

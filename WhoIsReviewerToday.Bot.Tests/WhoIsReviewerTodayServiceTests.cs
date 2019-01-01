@@ -2,6 +2,7 @@
 using System.Threading;
 using FluentAssertions;
 using Moq;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using WhoIsReviewerToday.Domain.Factories;
@@ -68,16 +69,23 @@ namespace WhoIsReviewerToday.Bot.Tests
         }
 
         [Fact]
-        public void SendsTextMessageAsyncOnSendMessage()
+        public async void SendsTextMessageAsyncOnSendMessage()
         {
             var service = CreateService();
-            var chatId = new ChatId(123);
             const string text = "Text";
 
-            service.SendSimpleMessage(chatId, text);
+            await service.TrySendMessageAsync(123, text);
 
             _whoIsReviewerTodayBotMock.Verify(
-                bot => bot.SendTextMessageAsync(chatId, text, ParseMode.Default, false, false, 0, null, _cancellationTokenSource.Token),
+                bot => bot.SendTextMessageAsync(
+                    It.Is<ChatId>(chId => chId.Identifier == 123),
+                    text,
+                    ParseMode.Default,
+                    false,
+                    false,
+                    0,
+                    null,
+                    _cancellationTokenSource.Token),
                 Times.Once);
         }
 
@@ -124,6 +132,29 @@ namespace WhoIsReviewerToday.Bot.Tests
             service.GetBotAsync(cancellationToken);
 
             _whoIsReviewerTodayBotMock.Verify(bot => bot.GetMeAsync(cancellationToken), Times.Once);
+        }
+
+        [Fact]
+        public async void ReturnsFalseWhenExceptionHappenedOnSendMessage()
+        {
+            const string text = "Text";
+            _whoIsReviewerTodayBotMock.Setup(
+                    bot => bot.SendTextMessageAsync(
+                        It.Is<ChatId>(chId => chId.Identifier == 123),
+                        text,
+                        ParseMode.Default,
+                        false,
+                        false,
+                        0,
+                        null,
+                        _cancellationTokenSource.Token))
+                .ThrowsAsync(new ApiRequestException("Message"));
+
+            var service = CreateService();
+
+            var result = await service.TrySendMessageAsync(123, text);
+
+            result.Should().BeFalse();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Moq;
 using Telegram.Bot.Types;
-using WhoIsReviewerToday.Bot;
+using WhoIsReviewerToday.Domain.Services;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using Xunit;
 
@@ -10,12 +10,12 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
     {
         public HelpCommandTests()
         {
-            _whoIsReviewerTodayServiceMock = new Mock<IWhoIsReviewerTodayService>();
+            _sendMessageServiceMock = new Mock<ISendMessageService>();
         }
 
-        private readonly Mock<IWhoIsReviewerTodayService> _whoIsReviewerTodayServiceMock;
+        private readonly Mock<ISendMessageService> _sendMessageServiceMock;
 
-        private HelpCommand CreateCommand() => new HelpCommand(_whoIsReviewerTodayServiceMock.Object);
+        private HelpCommand CreateCommand() => new HelpCommand(_sendMessageServiceMock.Object);
 
         [Fact]
         public void SendsMessageOnExecute()
@@ -24,9 +24,9 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
 
             command.Execute(new Message { Chat = new Chat { Id = 321 } });
 
-            _whoIsReviewerTodayServiceMock.Verify(
+            _sendMessageServiceMock.Verify(
                 service => service
-                    .SendSimpleMessage(It.Is<ChatId>(id => id.Identifier == 321), "I can't help you! Sorry!"));
+                    .TrySendMessageAsync(321, "I can't help you! Sorry!"));
         }
     }
 }

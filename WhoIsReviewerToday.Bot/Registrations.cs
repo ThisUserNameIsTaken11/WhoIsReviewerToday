@@ -15,10 +15,11 @@ namespace WhoIsReviewerToday.Bot
             return serviceCollection;
         }
 
-        public static IServiceCollection SetupStartAndStopBotService(
+        public static IServiceCollection SetupBotService(
             this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IStartAndStopBotService, WhoIsReviewerTodayService>();
+            serviceCollection.AddSingleton<ISendMessageService, WhoIsReviewerTodayService>();
 
             return serviceCollection;
         }

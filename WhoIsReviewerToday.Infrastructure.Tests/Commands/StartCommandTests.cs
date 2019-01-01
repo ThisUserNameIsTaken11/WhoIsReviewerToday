@@ -1,7 +1,7 @@
 ﻿using Moq;
 using Telegram.Bot.Types;
-using WhoIsReviewerToday.Bot;
 using WhoIsReviewerToday.Domain.Repositories;
+using WhoIsReviewerToday.Domain.Services;
 using WhoIsReviewerToday.Domain.Tests.Builders;
 using WhoIsReviewerToday.Infrastructure.Commands;
 using Xunit;
@@ -13,7 +13,7 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
     {
         public StartCommandTests()
         {
-            _whoIsReviewerTodayServiceMock = new Mock<IWhoIsReviewerTodayService>();
+            _sendMessageServiceMock = new Mock<ISendMessageService>();
 
             _chatRepositoryMock = new Mock<IChatRepository>();
             _chatRepositoryMock.Setup(
@@ -26,11 +26,11 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
                 .ReturnsAsync(true);
         }
 
-        private readonly Mock<IWhoIsReviewerTodayService> _whoIsReviewerTodayServiceMock;
+        private readonly Mock<ISendMessageService> _sendMessageServiceMock;
         private readonly Mock<IChatRepository> _chatRepositoryMock;
 
         private StartCommand CreateCommand() => new StartCommand(
-            _whoIsReviewerTodayServiceMock.Object,
+            _sendMessageServiceMock.Object,
             _chatRepositoryMock.Object);
 
         private static Message CreateMessage(
@@ -60,9 +60,9 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
             var command = CreateCommand();
             command.Execute(message);
 
-            _whoIsReviewerTodayServiceMock.Verify(
-                repository => repository.SendSimpleMessage(
-                    It.Is<ChatId>(id => id.Identifier == telegramChatId),
+            _sendMessageServiceMock.Verify(
+                repository => repository.TrySendMessageAsync(
+                    telegramChatId,
                     "Something goes wrong! Please ask admins and try again later"),
                 Times.Never);
         }
@@ -97,9 +97,9 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
             var command = CreateCommand();
             command.Execute(message);
 
-            _whoIsReviewerTodayServiceMock.Verify(
-                repository => repository.SendSimpleMessage(
-                    It.Is<ChatId>(id => id.Identifier == telegramChatId),
+            _sendMessageServiceMock.Verify(
+                repository => repository.TrySendMessageAsync(
+                    telegramChatId,
                     "Something goes wrong! Please ask admins and try again later"),
                 Times.Once);
         }
@@ -114,9 +114,9 @@ namespace WhoIsReviewerToday.Infrastructure.Tests.Commands
             var command = CreateCommand();
             command.Execute(message);
 
-            _whoIsReviewerTodayServiceMock.Verify(
-                repository => repository.SendSimpleMessage(
-                    It.Is<ChatId>(id => id.Identifier == telegramChatId),
+            _sendMessageServiceMock.Verify(
+                repository => repository.TrySendMessageAsync(
+                    telegramChatId,
                     "I am glad to welcome you! This chat has been added to the repository and I'll be following you"),
                 Times.Once);
         }

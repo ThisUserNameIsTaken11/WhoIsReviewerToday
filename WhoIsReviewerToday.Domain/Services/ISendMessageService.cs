@@ -1,9 +1,9 @@
-﻿namespace WhoIsReviewerToday.Domain.Services
+﻿using System.Threading.Tasks;
+
+namespace WhoIsReviewerToday.Domain.Services
 {
     public interface ISendMessageService
     {
-        void SendMessage(long telegramChatId, string text);
-
-        void SendMessage(string username, string text);
+        Task<bool> TrySendMessageAsync(long telegramChatId, string text);
     }
 }

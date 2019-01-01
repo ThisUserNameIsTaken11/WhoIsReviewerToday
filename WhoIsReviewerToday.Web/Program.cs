@@ -1,13 +1,11 @@
 ﻿using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Web;
 using WhoIsReviewerToday.Domain;
-using WhoIsReviewerToday.Domain.Services;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace WhoIsReviewerToday.Web
@@ -32,17 +30,12 @@ namespace WhoIsReviewerToday.Web
                     dbInitializer.SeedIfNeeded();
                 }
 
-                var configuration = webHostServices.GetRequiredService<IConfiguration>();
-                var websiteUrl = configuration["Website:Url"];
-
-                var schedulerService = webHostServices.GetRequiredService<ISchedulerService>();
-                var startAndStopBotService = webHostServices.GetRequiredService<IStartAndStopBotService>();
-                startAndStopBotService.Start(websiteUrl);
-                schedulerService.StartScheduler();
+                var appService = webHostServices.GetRequiredService<IAppService>();
+                appService.Start();
 
                 webHost.Run();
 
-                startAndStopBotService.Stop();
+                appService.Stop();
             }
             catch (Exception ex)
             {

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using WhoIsReviewerToday.Domain.Factories;
 
@@ -31,17 +32,29 @@ namespace WhoIsReviewerToday.Bot
             _logger.Info($"{nameof(WhoIsReviewerTodayService)} is started with webHookUrl:{webHookUrl}");
         }
 
-        public async void SendSimpleMessage(ChatId chartId, string text)
-        {
-            await _whoIsReviewerTodayBot.SendTextMessageAsync(chartId, text, cancellationToken: _cancellationTokenSource.Token);
-        }
-
         public string GetGreetings() => _whoIsReviewerTodayBot.GetGreetings();
 
         public void Stop()
         {
             _whoIsReviewerTodayBot.DeleteWebhookAsync(CancellationToken.None);
             _logger.Info($"{nameof(WhoIsReviewerTodayService)} is successfully stoped");
+        }
+
+        public async Task<bool> TrySendMessageAsync(long telegramChatId, string text)
+        {
+            try
+            {
+                await _whoIsReviewerTodayBot.SendTextMessageAsync(
+                    new ChatId(telegramChatId),
+                    text,
+                    cancellationToken: _cancellationTokenSource.Token);
+            }
+            catch (ApiRequestException)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static string GetWebHookUrl(string websiteUrl)
@@ -58,9 +71,5 @@ namespace WhoIsReviewerToday.Bot
 
             _cancellationTokenSource.Dispose();
         }
-
-        public void SendMessage(long telegramChatId, string text) => SendSimpleMessage(new ChatId(telegramChatId), text);
-
-        public void SendMessage(string username, string text) => SendSimpleMessage(new ChatId(username), text);
     }
 }

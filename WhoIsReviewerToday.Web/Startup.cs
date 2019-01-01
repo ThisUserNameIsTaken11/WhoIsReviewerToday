@@ -36,9 +36,9 @@ namespace WhoIsReviewerToday.Web
                 .SetupRepositories();
 
             if (_hostingEnvironment.IsDevelopment())
-                services.SetupStartAndStopBotServiceForDevelopment();
+                services.SetupBotServiceForDevelopment();
             else
-                services.SetupStartAndStopBotService();
+                services.SetupBotService();
         }
 
         public void ConfigureServices(IServiceCollection services)

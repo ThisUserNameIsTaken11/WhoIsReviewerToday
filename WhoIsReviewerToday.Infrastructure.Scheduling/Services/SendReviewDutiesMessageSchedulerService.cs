@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Threading;
 using Quartz;
-using Quartz.Spi;
 using WhoIsReviewerToday.Domain.Factories;
 using WhoIsReviewerToday.Domain.Services;
+using WhoIsReviewerToday.Infrastructure.Scheduling.Jobs;
 
-namespace WhoIsReviewerToday.Infrastructure.Scheduling
+namespace WhoIsReviewerToday.Infrastructure.Scheduling.Services
 {
-    internal class SchedulerService : IDisposable, ISchedulerService
+    internal class SendReviewDutiesMessageSchedulerService : IDisposable, ISendReviewDutiesMessageSchedulerService
     {
         private readonly CancellationTokenSource _cancellationTokenSource;
-        private readonly IJobFactory _jobFactory;
         private readonly ISchedulerFactory _schedulerFactory;
+        private readonly ISendReviewDutiesMessageJobFactory _sendReviewDutiesMessageJobFactory;
 
-        public SchedulerService(
+        public SendReviewDutiesMessageSchedulerService(
             ISchedulerFactory schedulerFactory,
             ICancellationTokenSourceFactory cancellationTokenSourceFactory,
-            IJobFactory jobFactory)
+            ISendReviewDutiesMessageJobFactory sendReviewDutiesMessageJobFactory)
         {
             _cancellationTokenSource = cancellationTokenSourceFactory.Create();
             _schedulerFactory = schedulerFactory;
-            _jobFactory = jobFactory;
+            _sendReviewDutiesMessageJobFactory = sendReviewDutiesMessageJobFactory;
         }
 
-        public async void StartScheduler()
+        public async void Start()
         {
             var scheduler = await _schedulerFactory.GetScheduler(_cancellationTokenSource.Token);
-            scheduler.JobFactory = _jobFactory;
+            scheduler.JobFactory = _sendReviewDutiesMessageJobFactory;
 
-            var job = JobBuilder.Create<MyJob>()
-                .WithIdentity("job1", "group1")
+            var groupName = $"{nameof(SendReviewDutiesMessageJob)}group";
+            var job = JobBuilder.Create<SendReviewDutiesMessageJob>()
+                .WithIdentity(nameof(SendReviewDutiesMessageJob), groupName)
                 .Build();
 
             var trigger = (ISimpleTrigger) TriggerBuilder.Create()
-                .WithIdentity("trigger1", "group1")
+                .WithIdentity($"{nameof(SendReviewDutiesMessageJob)}trigger", groupName)
                 .WithSimpleSchedule(x => x.WithIntervalInSeconds(30).RepeatForever())
                 //.ModifiedByCalendar("holidays")
                 .Build();
