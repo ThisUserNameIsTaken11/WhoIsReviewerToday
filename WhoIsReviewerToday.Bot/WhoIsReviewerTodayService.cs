@@ -28,7 +28,7 @@ namespace WhoIsReviewerToday.Bot
         {
             var webHookUrl = GetWebHookUrl(websiteUrl);
             await _whoIsReviewerTodayBot.SetWebhookAsync(webHookUrl, cancellationToken: _cancellationTokenSource.Token);
-
+            
             _logger.Info($"{nameof(WhoIsReviewerTodayService)} is started with webHookUrl:{webHookUrl}");
         }
 

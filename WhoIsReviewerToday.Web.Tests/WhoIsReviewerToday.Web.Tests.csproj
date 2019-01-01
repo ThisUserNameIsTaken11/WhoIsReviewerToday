@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WhoIsReviewerToday.Domain.Tests\WhoIsReviewerToday.Domain.Tests.csproj" />
     <ProjectReference Include="..\WhoIsReviewerToday.Web\WhoIsReviewerToday.Web.csproj" />
   </ItemGroup>
 

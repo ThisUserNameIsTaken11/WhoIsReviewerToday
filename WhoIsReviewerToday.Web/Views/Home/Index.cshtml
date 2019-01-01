@@ -1,1 +1,25 @@
-﻿Hello World!
+﻿@model WhoIsReviewerToday.Web.ViewModels.IReviewListViewModel
+
+
+<table class="table">
+    <thead>
+    <tr>
+        @foreach (var header in Model.Headers)
+        {
+            <th scope="col">@header</th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var row in Model.Rows)
+    {
+        <tr>
+            <th scope="row">@row.DateTime.Date.ToString("dd MMM yyyy")</th>
+            @foreach (var developer in row.Developers)
+            {
+                <td>@developer.UserName  (@developer.FullName)</td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>

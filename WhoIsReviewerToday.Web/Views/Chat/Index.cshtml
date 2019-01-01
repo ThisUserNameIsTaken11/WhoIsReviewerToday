@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WhoIsReviewerToday.Domain.Models.Chat>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Is Private</th>
+        <th scope="col">Telegram Chat Id</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var chat in Model)
+    {
+        <tr>
+            <th scope="row">@chat.Id</th>
+            <td>@chat.UserName</td>
+            <td>@chat.IsPrivate</td>
+            <td>@chat.TelegramChatId</td>
+        </tr>
+    }
+    </tbody>
+</table>

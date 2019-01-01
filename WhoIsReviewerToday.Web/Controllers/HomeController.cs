@@ -1,9 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WhoIsReviewerToday.Web.ViewModels;
 
 namespace WhoIsReviewerToday.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() => View();
+        private readonly IReviewViewModelFactory _reviewViewModelFactory;
+
+        public HomeController(IReviewViewModelFactory reviewViewModelFactory)
+        {
+            _reviewViewModelFactory = reviewViewModelFactory;
+        }
+
+        public IActionResult Index() => View(_reviewViewModelFactory.CreateList());
     }
 }

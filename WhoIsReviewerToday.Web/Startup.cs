@@ -33,6 +33,7 @@ namespace WhoIsReviewerToday.Web
                 .SetupCommands()
                 .SetupCalendars()
                 .SetupFactories()
+                .SetupViewModelFactories()
                 .SetupScheduling()
                 .SetupAppService()
                 .SetupRepositories();
