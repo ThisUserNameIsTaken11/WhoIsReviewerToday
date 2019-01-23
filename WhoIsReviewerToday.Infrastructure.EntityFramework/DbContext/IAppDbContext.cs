@@ -13,5 +13,7 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
         void AddRange(IEnumerable<object> entities);
 
         int SaveChanges();
+
+        void EnsureDatabaseCreated();
     }
 }

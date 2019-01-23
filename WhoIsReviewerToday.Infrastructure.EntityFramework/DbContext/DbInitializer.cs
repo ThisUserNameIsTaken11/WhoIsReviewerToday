@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using WhoIsReviewerToday.Domain;
 using WhoIsReviewerToday.Domain.Models;
 
@@ -12,6 +11,8 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
         public DbInitializer(IAppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+
+            _appDbContext.EnsureDatabaseCreated();
         }
 
         public void SeedIfNeeded()

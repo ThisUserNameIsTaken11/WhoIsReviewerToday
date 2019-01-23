@@ -12,6 +12,6 @@ namespace WhoIsReviewerToday.Web.Controllers
             _reviewViewModelFactory = reviewViewModelFactory;
         }
 
-        public IActionResult Index() => View(_reviewViewModelFactory.CreateList());
+        public IActionResult Index() => View(_reviewViewModelFactory.CreateRowList());
     }
 }

@@ -17,9 +17,18 @@ namespace WhoIsReviewerToday.Web.ViewModels
             _developerViewModelFactory = developerViewModelFactory;
         }
 
-        public IReviewListViewModel CreateList() => new ReviewListViewModel(_reviewRepository, this, _developerViewModelFactory);
+        public IReviewRowListViewModel CreateRowList() => new ReviewRowListViewModel(_reviewRepository, this, _developerViewModelFactory);
 
         public IReviewRowViewModel CreateRow(DateTime dateTime, IEnumerable<IDeveloperViewModel> developers) =>
             new ReviewRowViewModel(dateTime, developers);
+
+        public IReviewViewModel Create(DateTime dateTime, IDeveloperViewModel developer) =>
+            new ReviewViewModel
+            {
+                DateTime = dateTime,
+                Developer = developer
+            };
+
+        public IReviewListViewModel CreateList() => new ReviewListViewModel(_reviewRepository, this, _developerViewModelFactory);
     }
 }

@@ -9,6 +9,8 @@ namespace WhoIsReviewerToday.Infrastructure.EntityFramework.DbContext
         {
         }
 
+        public void EnsureDatabaseCreated() => Database.EnsureCreated();
+
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<Review> Reviews { get; set; }

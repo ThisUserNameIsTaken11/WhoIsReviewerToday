@@ -7,6 +7,10 @@ namespace WhoIsReviewerToday.Web.ViewModels
     {
         IReviewRowViewModel CreateRow(DateTime dateTime, IEnumerable<IDeveloperViewModel> developers);
 
+        IReviewRowListViewModel CreateRowList();
+
+        IReviewViewModel Create(DateTime dateTime, IDeveloperViewModel developer);
+
         IReviewListViewModel CreateList();
     }
 }

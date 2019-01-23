@@ -28,8 +28,8 @@ namespace WhoIsReviewerToday.Web.Tests.ViewModels
         private readonly List<Review> _reviews;
         private readonly Mock<IReviewViewModelFactory> _reviewViewModelFactoryMock;
 
-        private ReviewListViewModel CreateViewModel() =>
-            new ReviewListViewModel(
+        private ReviewRowListViewModel CreateViewModel() =>
+            new ReviewRowListViewModel(
                 _reviewRepositoryMock.Object,
                 _reviewViewModelFactoryMock.Object,
                 _developerViewModelFactoryMock.Object

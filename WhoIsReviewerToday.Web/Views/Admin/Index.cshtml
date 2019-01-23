@@ -1,0 +1,130 @@
+﻿@using WhoIsReviewerToday.Domain.Models
+@model WhoIsReviewerToday.Web.ViewModels.IReviewListViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Index</title>
+</head>
+<body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#tblLocations").sortable({
+            items: 'tr:not(tr:first-child)',
+            cursor: 'pointer',
+            axis: 'y',
+            dropOnEmpty: false,
+            start: function(e, ui) {
+                ui.item.addClass("selected");
+            },
+            stop: function(e, ui) {
+                ui.item.removeClass("selected");
+            },
+            receive: function(e, ui) {
+                $(this).find("tbody").append(ui.item);
+            }
+        });
+    });
+</script>
+@using (Html.BeginForm("Index", "Admin", FormMethod.Post))
+{
+    <table id="tblLocations"
+           class="table">
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Developer</th>
+        </tr>
+        @foreach (var review in Model.Items)
+        {
+            <tr>
+                <th scope="row">
+                    @review.DateTime
+                    <input type="hidden" name="DateTime" value="@review.DateTime.Date.ToString("dd MMM yyyy")"/>
+                </th>
+                <td>
+                    @review.Developer.UserName (@review.Developer.FullName)
+                    <input type="hidden" name="Developer" value="@review.Developer"/>
+                </td>
+            </tr>
+        }
+    </table>
+    <br/>
+    <input type="submit" value="Update Reviews"/>
+
+    <br/>
+
+    @using (Html.BeginForm("AppointDuties", "Admin", FormMethod.Post))
+     {
+         @Html.DropDownList("Team",
+             Html.GetEnumSelectList(typeof(Team)),
+             "Select Team",
+             new
+             {
+                 name = "team"
+             })
+
+         <br/>
+         <input type="submit" value="Appoint Duties for selected team"/>
+     }
+}
+</body>
+</html>
+@*@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $("#tblLocations").sortable({
+                items: 'tr:not(tr:first-child)',
+                cursor: 'pointer',
+                axis: 'y',
+                dropOnEmpty: false,
+                start: function(e, ui) {
+                    ui.item.addClass("selected");
+                },
+                stop: function(e, ui) {
+                    ui.item.removeClass("selected");
+                },
+                receive: function(e, ui) {
+                    $(this).find("tbody").append(ui.item);
+                }
+            });
+        });
+    </script>
+}*@
+
+@*@using (Html.BeginForm("Index", "Admin", FormMethod.Post))
+{
+    <table id="tblLocations"
+           class="table">
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Developer</th>
+        </tr>
+        @foreach (var review in Model.Items)
+        {
+            <tr>
+                <th scope="row">
+                    @review.DateTime
+                    <input type="hidden" name="DateTime" value="@review.DateTime.Date.ToString("dd MMM yyyy")"/>
+                </th>
+                <td>
+                    @review.Developer.UserName (@review.Developer.FullName)
+                    <input type="hidden" name="Developer" value="@review.Developer"/>
+                </td>
+            </tr>
+        }
+    </table>
+    <br/>
+    <input type="submit" value="Update Reviews"/>
+}*@
+
+
